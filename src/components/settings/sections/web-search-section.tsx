@@ -54,7 +54,7 @@ export function WebSearchSection({ draft, setDraft }: Props) {
             type="password"
             value={draft.searchApiKey}
             onChange={(e) => setDraft("searchApiKey", e.target.value)}
-            placeholder="Enter your Tavily API key (tavily.com)"
+            placeholder={t("settings.sections.webSearch.tavilyApiKeyPlaceholder")}
           />
         </div>
       )}

@@ -56,7 +56,11 @@
     "saved": "保存しました",
     "writeToWiki": "wiki に書き込み",
     "emptyHint": "質問するか、ソースの取り込みを開始してください。",
-    "sources": "ソース"
+    "sources": "ソース",
+    "stopGeneration": "生成を停止",
+    "sendMessage": "メッセージを送信",
+    "regenerate": "この応答を再生成",
+    "copyToClipboard": "クリップボードにコピー"
   },
   "search": {
     "title": "検索",
@@ -124,7 +128,8 @@
         "apiKeyPlaceholder": "API キーを入力",
         "savedBadge": "保存済み",
         "configuredBadge": "設定済み",
-        "activeBadge": "● アクティブ"
+        "activeBadge": "● アクティブ",
+        "customModelTooltip": "カスタムモデル ID を入力"
       },
       "embedding": {
         "title": "ベクター埋め込み",
@@ -153,7 +158,8 @@
       },
       "webSearch": {
         "title": "Web 検索",
-        "description": "Deep Research が外部から最新情報を取得する際に使用します。"
+        "description": "Deep Research が外部から最新情報を取得する際に使用します。",
+        "tavilyApiKeyPlaceholder": "Tavily の API キーを入力 (tavily.com)"
       },
       "output": {
         "title": "出力設定",

@@ -61,7 +61,7 @@ export function ChatInput({ onSend, onStop, isStreaming, placeholder }: ChatInpu
           size="icon"
           onClick={onStop}
           className="shrink-0"
-          title="Stop generation"
+          title={t("chat.stopGeneration")}
         >
           <Square className="h-4 w-4" />
         </Button>
@@ -71,7 +71,7 @@ export function ChatInput({ onSend, onStop, isStreaming, placeholder }: ChatInpu
           onClick={handleSend}
           disabled={!value.trim()}
           className="shrink-0"
-          title="Send message"
+          title={t("chat.sendMessage")}
         >
           <Send className="h-4 w-4" />
         </Button>

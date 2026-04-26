@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState, useMemo } from "react"
+import { useTranslation } from "react-i18next"
 import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
 import remarkMath from "remark-math"
@@ -58,6 +59,7 @@ interface ChatMessageProps {
 }
 
 export function ChatMessage({ message, isLastAssistant, onRegenerate }: ChatMessageProps) {
+  const { t } = useTranslation()
   const isUser = message.role === "user"
   const isSystem = message.role === "system"
   const isAssistant = message.role === "assistant"
@@ -104,7 +106,7 @@ export function ChatMessage({ message, isLastAssistant, onRegenerate }: ChatMess
                 type="button"
                 onClick={onRegenerate}
                 className="inline-flex items-center gap-1 rounded px-2 py-0.5 text-[11px] text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors"
-                title="Regenerate this response"
+                title={t("chat.regenerate")}
               >
                 <RefreshCw className="h-3 w-3" /> Regenerate
               </button>
@@ -117,6 +119,7 @@ export function ChatMessage({ message, isLastAssistant, onRegenerate }: ChatMess
 }
 
 function CopyButton({ content }: { content: string }) {
+  const { t } = useTranslation()
   const [copied, setCopied] = useState(false)
 
   const handleCopy = useCallback(async () => {
@@ -137,7 +140,7 @@ function CopyButton({ content }: { content: string }) {
       type="button"
       onClick={handleCopy}
       className="inline-flex items-center gap-1 rounded px-2 py-0.5 text-[11px] text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors"
-      title="Copy to clipboard"
+      title={t("chat.copyToClipboard")}
     >
       {copied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
       {copied ? "Copied!" : "Copy"}
@@ -146,6 +149,7 @@ function CopyButton({ content }: { content: string }) {
 }
 
 function SaveToWikiButton({ content, visible }: { content: string; visible: boolean }) {
+  const { t } = useTranslation()
   const project = useWikiStore((s) => s.project)
   const setFileTree = useWikiStore((s) => s.setFileTree)
   const [saved, setSaved] = useState(false)
@@ -249,7 +253,7 @@ function SaveToWikiButton({ content, visible }: { content: string; visible: bool
       onClick={handleSave}
       disabled={saving}
       className="self-start inline-flex items-center gap-1 rounded px-2 py-0.5 text-[11px] text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors"
-      title="Save to wiki"
+      title={t("chat.saveToWiki")}
     >
       <BookmarkPlus className="h-3 w-3" />
       {saved ? "Saved!" : saving ? "Saving..." : "Save to Wiki"}

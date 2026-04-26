@@ -365,6 +365,7 @@ interface ModelPickerProps {
  * `suggestedModels` render the input alone.
  */
 function ModelPicker({ value, suggestions, placeholder, onChange }: ModelPickerProps) {
+  const { t } = useTranslation()
   const hasSuggestions = suggestions.length > 0
   const isCustom = hasSuggestions && value.length > 0 && !suggestions.includes(value)
 
@@ -398,7 +399,7 @@ function ModelPicker({ value, suggestions, placeholder, onChange }: ModelPickerP
                 ? "border-primary/60 bg-primary/10 text-primary"
                 : "border-dashed border-muted-foreground/40 text-muted-foreground hover:bg-accent hover:text-accent-foreground"
             }`}
-            title="Type a custom model id"
+            title={t("settings.sections.llm.customModelTooltip")}
           >
             {isCustom ? `Custom: ${value}` : "Custom…"}
           </button>

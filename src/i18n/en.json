@@ -56,7 +56,11 @@
     "saved": "Saved!",
     "writeToWiki": "Write to Wiki",
     "emptyHint": "Ask a question or start an ingest to begin.",
-    "sources": "Sources"
+    "sources": "Sources",
+    "stopGeneration": "Stop generation",
+    "sendMessage": "Send message",
+    "regenerate": "Regenerate this response",
+    "copyToClipboard": "Copy to clipboard"
   },
   "search": {
     "title": "Search",
@@ -124,7 +128,8 @@
         "apiKeyPlaceholder": "Enter your API key",
         "savedBadge": "saved",
         "configuredBadge": "configured",
-        "activeBadge": "● active"
+        "activeBadge": "● active",
+        "customModelTooltip": "Type a custom model id"
       },
       "embedding": {
         "title": "Vector Embeddings",
@@ -153,7 +158,8 @@
       },
       "webSearch": {
         "title": "Web Search",
-        "description": "Used by Deep Research to pull fresh external context."
+        "description": "Used by Deep Research to pull fresh external context.",
+        "tavilyApiKeyPlaceholder": "Enter your Tavily API key (tavily.com)"
       },
       "output": {
         "title": "Output Preferences",
