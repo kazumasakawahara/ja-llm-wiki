@@ -24,6 +24,8 @@ export const JA_STOP_WORDS: ReadonlySet<string> = new Set([
   "て", "ば", "けど", "けれど", "しかし", "そして", "また",
   "これ", "それ", "あれ", "この", "その", "あの",
   "ここ", "そこ", "あそこ",
+  // 形式名詞 (formal nouns) — high-frequency filler in search queries
+  "こと", "もの", "ため", "よう", "とき", "ところ",
   // 助動詞・コピュラ
   "だ", "です", "である", "ます", "した", "する", "される", "せる",
   "れる", "られる", "ない", "なかっ",
@@ -31,8 +33,12 @@ export const JA_STOP_WORDS: ReadonlySet<string> = new Set([
   "ある", "いる", "なる", "なっ", "言う", "言っ", "思う", "見る",
 ])
 
-const HIRAGANA_OR_KATAKANA = /[぀-ゟ゠-ヿㇰ-ㇿ･-ﾟ]/u
-const KANJI = /[㐀-䶿一-鿿]/u
+// Use Unicode property escapes (\p{Script=…}) instead of literal ranges.
+// This is more robust: it covers CJK Extension B+ for kanji (e.g. rare
+// given-name characters like 𠮷) and doesn't depend on visually-confusable
+// boundary characters in source code.
+const HIRAGANA_OR_KATAKANA = /\p{Script=Hiragana}|\p{Script=Katakana}/u
+const KANJI = /\p{Script=Han}/u
 
 export function hasJapanese(text: string): boolean {
   if (!text) return false

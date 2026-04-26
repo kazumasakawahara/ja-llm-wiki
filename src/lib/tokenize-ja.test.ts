@@ -18,6 +18,9 @@ describe("hasJapanese", () => {
   it("returns false for empty string", () => {
     expect(hasJapanese("")).toBe(false)
   })
+  it("detects rare kanji from CJK Extension B (e.g. 𠮷 - rare given-name kanji)", () => {
+    expect(hasJapanese("𠮷田")).toBe(true)
+  })
 })
 
 describe("tokenizeJapanese (Intl.Segmenter)", () => {
@@ -66,6 +69,11 @@ describe("JA_STOP_WORDS", () => {
   })
   it("contains common copula forms", () => {
     for (const p of ["だ", "です", "である", "ます", "した", "する"]) {
+      expect(JA_STOP_WORDS.has(p)).toBe(true)
+    }
+  })
+  it("contains formal nouns that act as filler", () => {
+    for (const p of ["こと", "もの", "ため", "よう", "とき", "ところ"]) {
       expect(JA_STOP_WORDS.has(p)).toBe(true)
     }
   })
