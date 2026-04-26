@@ -1,6 +1,7 @@
 import { readFile, listDirectory } from "@/commands/fs"
 import type { FileNode } from "@/types/wiki"
 import { normalizePath, getFileStem } from "@/lib/path-utils"
+import { hasJapanese, tokenizeJapanese } from "./tokenize-ja"
 
 export interface SearchResult {
   path: string
@@ -56,7 +57,7 @@ const TITLE_TOKEN_WEIGHT = 5
 const CONTENT_TOKEN_WEIGHT = 1
 
 const STOP_WORDS = new Set([
-  "的", "是", "了", "什么", "在", "有", "和", "与", "对", "从",
+  // English
   "the", "is", "a", "an", "what", "how", "are", "was", "were",
   "do", "does", "did", "be", "been", "being", "have", "has", "had",
   "it", "its", "in", "on", "at", "to", "for", "of", "with", "by",
@@ -64,41 +65,34 @@ const STOP_WORDS = new Set([
 ])
 
 export function tokenizeQuery(query: string): string[] {
-  // Split by whitespace and punctuation
-  const rawTokens = query
+  // Whole-query Japanese path: morphological segmentation + ja stop
+  // words. Returns early so we don't double-apply CJK bigram heuristics
+  // (those have been removed since zh support was dropped).
+  if (hasJapanese(query)) {
+    // Intl.Segmenter preserves original case for latin runs ("React",
+    // "GPT-4"). The downstream haystack is lowercased before `includes`,
+    // so we must lowercase here to match — kanji/hiragana toLowerCase is
+    // a no-op, so this is safe for Japanese tokens too.
+    const jaTokens = tokenizeJapanese(query).map((t) => t.toLowerCase())
+    // Also extract contiguous latin/digit runs so terms embedded inside an
+    // otherwise-Japanese query (e.g. "Vite", "GPT", "4" from "Reactの
+    // hooksについて") survive even when the Segmenter merges them with
+    // adjacent kana into a single non-word-like span.
+    const latinRuns = query.toLowerCase().match(/[a-z0-9]+/g) ?? []
+    const latinTokens = latinRuns
+      .filter((t) => t.length > 1)
+      .filter((t) => !STOP_WORDS.has(t))
+    return [...new Set([...jaTokens, ...latinTokens])]
+  }
+
+  // Non-Japanese (English / mixed Latin) path — original behaviour
+  // sans the Chinese-specific bigram fallback (no longer supported).
+  const tokens = query
     .toLowerCase()
     .split(/[\s,，。！？、；：""''（）()\-_/\\·~～…]+/)
     .filter((t) => t.length > 1)
     .filter((t) => !STOP_WORDS.has(t))
 
-  const tokens: string[] = []
-
-  for (const token of rawTokens) {
-    // Check if token contains CJK characters
-    const hasCJK = /[\u4e00-\u9fff\u3400-\u4dbf]/.test(token)
-
-    if (hasCJK && token.length > 2) {
-      // For CJK text: split into individual characters AND overlapping bigrams
-      // "默会知识" → ["默会", "会知", "知识", "默", "会", "知", "识"]
-      const chars = [...token]
-      // Add bigrams (most useful for Chinese)
-      for (let i = 0; i < chars.length - 1; i++) {
-        tokens.push(chars[i] + chars[i + 1])
-      }
-      // Also add individual chars (for single-char matches)
-      for (const ch of chars) {
-        if (!STOP_WORDS.has(ch)) {
-          tokens.push(ch)
-        }
-      }
-      // Keep the original token too (for exact phrase match)
-      tokens.push(token)
-    } else {
-      tokens.push(token)
-    }
-  }
-
-  // Deduplicate
   return [...new Set(tokens)]
 }
 
