@@ -1,5 +1,4 @@
 import type { WikiTemplate } from "./templates"
-import { TEMPLATES_EN } from "./templates.en"
 
 const BASE_SCHEMA_TYPES_JA = `| entity | wiki/entities/ | 名前のあるもの (人物・ツール・組織・データセット) |
 | concept | wiki/concepts/ | 考え方・手法・現象・フレームワーク |
@@ -562,12 +561,78 @@ ${BASE_CONTRADICTION_JA}
 `,
 }
 
+const generalTemplateJa: WikiTemplate = {
+  id: "general",
+  name: "汎用",
+  description: "最小構成 — 用途を問わない白紙のテンプレート",
+  icon: "📄",
+  extraDirs: [],
+  schema: `# Wiki スキーマ
+
+## ページタイプ
+
+| Type | Directory | Purpose |
+|------|-----------|---------|
+${BASE_SCHEMA_TYPES_JA}
+
+## 命名規則
+
+${BASE_NAMING_JA}
+
+## Frontmatter
+
+${BASE_FRONTMATTER_JA}
+
+## Index フォーマット
+
+${BASE_INDEX_FORMAT_JA}
+
+## Log フォーマット
+
+${BASE_LOG_FORMAT_JA}
+
+## 相互参照ルール
+
+${BASE_CROSSREF_JA}
+
+## 矛盾の取り扱い
+
+${BASE_CONTRADICTION_JA}
+`,
+  purpose: `# プロジェクトの目的
+
+## ゴール
+
+<!-- 何を理解しようとしているか/何を作ろうとしているかを書く。 -->
+
+## 主要な問い
+
+<!-- このプロジェクトを駆動する主な問いを列挙する。 -->
+
+1.
+2.
+3.
+
+## スコープ
+
+**対象:**
+-
+
+**対象外:**
+-
+
+## 暫定セシス (working thesis)
+
+<!-- 現時点でのワーキング仮説や結論 (プロジェクトの進行に応じて更新) -->
+
+> TBD
+`,
+}
+
 export const TEMPLATES_JA: WikiTemplate[] = [
   researchTemplateJa,
   readingTemplateJa,
   personalTemplateJa,
   businessTemplateJa,
-  ...TEMPLATES_EN.filter(
-    (t) => t.id !== "research" && t.id !== "reading" && t.id !== "personal" && t.id !== "business",
-  ),
+  generalTemplateJa,
 ]
