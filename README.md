@@ -190,7 +190,7 @@ The original describes a simple query where the LLM reads relevant pages. We bui
 ```
 Phase 1: Tokenized Search
   - English: word splitting + stop word removal
-  - Chinese: CJK bigram tokenization (每个 → [每个, 个…])
+  - Japanese: morphological segmentation via Intl.Segmenter (default) or Lindera/MeCab (high-accuracy mode, opt-in)
   - Title match bonus (+10 score)
   - Searches both wiki/ and raw/sources/
 
@@ -336,7 +336,7 @@ The original is platform-agnostic (abstract pattern). We handle concrete cross-p
 
 ### 18. Other Additions
 
-- **i18n** — English + Chinese interface (react-i18next)
+- **i18n** — English + Japanese interface (react-i18next), OS-locale auto-detection on first launch
 - **Settings persistence** — LLM provider, API key, model, context size, language saved via Tauri Store
 - **Obsidian config** — auto-generated `.obsidian/` directory with recommended settings
 - **Markdown rendering** — GFM tables with borders, proper code blocks, wikilink processing in chat and preview
