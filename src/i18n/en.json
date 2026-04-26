@@ -181,6 +181,10 @@
         "openDownload": "Open download page",
         "later": "Later",
         "autoCheck": "Check for updates automatically on startup (at most once every 6 hours)",
+        "tokenizer": "Japanese tokenizer",
+        "tokenizerHint": "Tokenization engine for Japanese search queries. Auto uses the OS-provided Intl.Segmenter (fast, lightweight). Lindera is the MeCab-compatible high-accuracy mode and ships with a dictionary that adds ~50MB to the binary.",
+        "tokenizerAuto": "Auto (Intl.Segmenter)",
+        "tokenizerLindera": "Lindera (MeCab-compatible / high accuracy)",
         "appDescription": "An LLM-driven personal knowledge base. Source:"
       }
     }
@@ -192,7 +196,13 @@
   "activity": {
     "processing": "Processing: {{title}}",
     "done": "Done: {{title}}",
-    "clearCompleted": "Clear completed"
+    "clearCompleted": "Clear completed",
+    "cancelAll": "Cancel all queued and running tasks",
+    "retry": "Retry",
+    "cancel": "Cancel"
+  },
+  "research": {
+    "topicPlaceholder": "Enter a research topic..."
   },
   "fileTree": {
     "noProject": "No project open"
