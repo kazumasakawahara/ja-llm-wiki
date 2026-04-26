@@ -19,7 +19,7 @@
 </p>
 
 <p align="center">
-  English | <a href="README_CN.md">中文</a>
+  English | <a href="README_JA.md">日本語</a>
 </p>
 
 ---
@@ -120,7 +120,7 @@ Additional ingest enhancements beyond the original:
 - **Source traceability** — every generated wiki page includes a `sources: []` field in YAML frontmatter, linking back to the raw source files that contributed to it
 - **overview.md auto-update** — global summary page regenerated on every ingest to reflect the latest state of the wiki
 - **Guaranteed source summary** — fallback ensures a source summary page is always created, even if the LLM omits it
-- **Language-aware generation** — LLM responds in the user's configured language (English or Chinese)
+- **Language-aware generation** — LLM responds in the user's configured language (English or Japanese)
 
 ### 4. Knowledge Graph with Relevance Model
 
