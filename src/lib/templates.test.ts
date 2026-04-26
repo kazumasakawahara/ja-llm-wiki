@@ -26,4 +26,23 @@ describe("templates factory", () => {
     const t = getTemplate("research") // no locale arg
     expect(t.id).toBe("research")
   })
+
+  // Locale-invariant fields. Tasks 19-23 replace name/description/schema/
+  // purpose with Japanese strings, but extraDirs and icon are filesystem-
+  // and-ui contracts respectively — they must NOT diverge across locales.
+  describe("locale-invariant fields", () => {
+    for (const id of ["research", "reading", "personal", "business", "general"]) {
+      it(`extraDirs for "${id}" matches across locales`, () => {
+        const en = getTemplate(id, "en")
+        const ja = getTemplate(id, "ja")
+        expect(ja.extraDirs).toEqual(en.extraDirs)
+      })
+
+      it(`icon for "${id}" matches across locales`, () => {
+        const en = getTemplate(id, "en")
+        const ja = getTemplate(id, "ja")
+        expect(ja.icon).toBe(en.icon)
+      })
+    }
+  })
 })
