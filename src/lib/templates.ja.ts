@@ -133,7 +133,7 @@ ${BASE_CONTRADICTION_JA}
 
 >
 
-## 仮説 / 暫定セシス (working thesis)
+## 仮説 / ワーキング仮説 (working thesis)
 
 <!-- 現時点での最良の見立て。証拠が積み上がるにつれて更新していく。 -->
 
@@ -621,7 +621,7 @@ ${BASE_CONTRADICTION_JA}
 **対象外:**
 -
 
-## 暫定セシス (working thesis)
+## ワーキング仮説 (working thesis)
 
 <!-- 現時点でのワーキング仮説や結論 (プロジェクトの進行に応じて更新) -->
 
