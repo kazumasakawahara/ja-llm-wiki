@@ -403,6 +403,8 @@ npm run tauri build    # Production build
 7. **Review** で対応の必要な項目を確認する
 8. **Lint** を定期的に実行して Wiki の健全性を保つ
 
+> 初めて使う方は、ステップごとの詳しい手順や日本語形態素解析・Obsidian 併用などをまとめた [日本語ユーザーマニュアル (MANUAL_JA.md)](MANUAL_JA.md) も参照してください。
+
 ## プロジェクト構成
 
 ```
