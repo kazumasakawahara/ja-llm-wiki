@@ -1,4 +1,5 @@
 import { useRef, useEffect, useCallback, useState } from "react"
+import { useTranslation } from "react-i18next"
 import { BookOpen, Plus, Trash2, MessageSquare } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ChatMessage, StreamingMessage, useSourceFiles } from "./chat-message"
@@ -119,6 +120,7 @@ function ConversationSidebar() {
 }
 
 export function ChatPanel() {
+  const { t } = useTranslation()
   useSourceFiles() // Keep source file cache warm
   const activeConversationId = useChatStore((s) => s.activeConversationId)
   const isStreaming = useChatStore((s) => s.isStreaming)
@@ -513,8 +515,8 @@ export function ChatPanel() {
           isStreaming={isStreaming}
           placeholder={
             mode === "ingest"
-              ? "Discuss the source or ask follow-up questions..."
-              : "Type a message..."
+              ? t("chat.ingestPlaceholder")
+              : t("chat.placeholder")
           }
         />
       </div>
