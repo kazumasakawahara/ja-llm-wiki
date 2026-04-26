@@ -44,3 +44,6 @@ pnpm-debug.log*
 # Brainstorm assets (not tracked in source control)
 .superpowers/
 .claude/
+
+# Git worktrees (isolated dev branches)
+.worktrees/
