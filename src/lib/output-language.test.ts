@@ -89,3 +89,22 @@ describe("buildLanguageReminder", () => {
     expect(buildLanguageReminder("これは日本語です")).toContain("Japanese")
   })
 })
+
+describe("buildLanguageDirective — Japanese specifics", () => {
+  it("includes katakana / 文体 guidelines for Japanese output", () => {
+    useWikiStore.getState().setOutputLanguage("Japanese")
+    const dir = buildLanguageDirective("こんにちは")
+    expect(dir).toContain("Japanese")
+    // The Japanese addendum should mention katakana transliteration
+    expect(dir).toMatch(/カタカナ|katakana/i)
+    // ... and 文体 (writing style) guidance
+    expect(dir).toMatch(/文体|である調|です・?ます調/)
+  })
+
+  it("does NOT include the Japanese addendum when output is English", () => {
+    useWikiStore.getState().setOutputLanguage("English")
+    const dir = buildLanguageDirective("hello")
+    expect(dir).toContain("English")
+    expect(dir).not.toMatch(/カタカナ|である調/)
+  })
+})
