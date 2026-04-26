@@ -66,18 +66,21 @@ const STOP_WORDS = new Set([
 
 export function tokenizeQuery(query: string): string[] {
   // Whole-query Japanese path: morphological segmentation + ja stop
-  // words. Returns early so we don't double-apply CJK bigram heuristics
-  // (those have been removed since zh support was dropped).
+  // words. Returns early so the legacy English path doesn't re-tokenize
+  // Japanese with whitespace splitting.
   if (hasJapanese(query)) {
-    // Intl.Segmenter preserves original case for latin runs ("React",
-    // "GPT-4"). The downstream haystack is lowercased before `includes`,
-    // so we must lowercase here to match — kanji/hiragana toLowerCase is
-    // a no-op, so this is safe for Japanese tokens too.
+    // Intl.Segmenter preserves original case for latin runs (e.g.
+    // "React", "Vite"). The downstream haystack is lowercased before
+    // `includes`, so we must lowercase here to match — kanji/hiragana
+    // toLowerCase is a no-op, so this is safe for Japanese tokens too.
     const jaTokens = tokenizeJapanese(query).map((t) => t.toLowerCase())
-    // Also extract contiguous latin/digit runs so terms embedded inside an
-    // otherwise-Japanese query (e.g. "Vite", "GPT", "4" from "Reactの
-    // hooksについて") survive even when the Segmenter merges them with
-    // adjacent kana into a single non-word-like span.
+    // Also extract contiguous latin/digit runs so terms embedded inside
+    // an otherwise-Japanese query (e.g. "react", "hooks" from
+    // "Reactのhooksについて") survive even when the Segmenter merges
+    // them with adjacent kana into a single non-word-like span. Note:
+    // hyphenated tokens like "GPT-4" are split by the regex into "gpt"
+    // and "4"; the length>1 filter then drops the bare "4" — same
+    // behaviour as the legacy English path, not a new regression.
     const latinRuns = query.toLowerCase().match(/[a-z0-9]+/g) ?? []
     const latinTokens = latinRuns
       .filter((t) => t.length > 1)
