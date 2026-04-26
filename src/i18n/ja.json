@@ -60,7 +60,10 @@
     "stopGeneration": "生成を停止",
     "sendMessage": "メッセージを送信",
     "regenerate": "この応答を再生成",
-    "copyToClipboard": "クリップボードにコピー"
+    "copyToClipboard": "クリップボードにコピー",
+    "regenerateLabel": "再生成",
+    "copyLabel": "コピー",
+    "copiedLabel": "コピーしました"
   },
   "search": {
     "title": "検索",

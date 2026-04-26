@@ -60,7 +60,10 @@
     "stopGeneration": "Stop generation",
     "sendMessage": "Send message",
     "regenerate": "Regenerate this response",
-    "copyToClipboard": "Copy to clipboard"
+    "copyToClipboard": "Copy to clipboard",
+    "regenerateLabel": "Regenerate",
+    "copyLabel": "Copy",
+    "copiedLabel": "Copied!"
   },
   "search": {
     "title": "Search",

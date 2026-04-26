@@ -108,7 +108,7 @@ export function ChatMessage({ message, isLastAssistant, onRegenerate }: ChatMess
                 className="inline-flex items-center gap-1 rounded px-2 py-0.5 text-[11px] text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors"
                 title={t("chat.regenerate")}
               >
-                <RefreshCw className="h-3 w-3" /> Regenerate
+                <RefreshCw className="h-3 w-3" /> {t("chat.regenerateLabel")}
               </button>
             )}
           </div>
@@ -143,7 +143,7 @@ function CopyButton({ content }: { content: string }) {
       title={t("chat.copyToClipboard")}
     >
       {copied ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
-      {copied ? "Copied!" : "Copy"}
+      {copied ? t("chat.copiedLabel") : t("chat.copyLabel")}
     </button>
   )
 }
@@ -256,7 +256,7 @@ function SaveToWikiButton({ content, visible }: { content: string; visible: bool
       title={t("chat.saveToWiki")}
     >
       <BookmarkPlus className="h-3 w-3" />
-      {saved ? "Saved!" : saving ? "Saving..." : "Save to Wiki"}
+      {saved ? t("chat.saved") : saving ? t("chat.saving") : t("chat.saveToWiki")}
     </button>
   )
 }
