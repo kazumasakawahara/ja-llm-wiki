@@ -103,19 +103,6 @@ const EN_SEED_WIKI: Record<string, string> = {
   ),
 }
 
-const ZH_SEED_WIKI: Record<string, string> = {
-  "purpose.md": "# 用途\n\n深度学习研究笔记。\n",
-  "wiki/index.md": "# 索引\n\n- [[注意力机制]]\n- [[transformer]]\n",
-  "wiki/注意力机制.md": page(
-    "注意力机制",
-    "注意力机制是 [[transformer]] 架构的核心组件，对序列中每个位置做加权聚合。",
-  ),
-  "wiki/transformer.md": page(
-    "Transformer",
-    "Transformer 是基于 [[注意力机制]] 的神经网络架构。",
-  ),
-}
-
 function minimalSeedWiki(targetLang: string): Record<string, string> {
   return {
     "purpose.md": `# Purpose\n\nKnowledge base. Primary language: ${targetLang}.\n`,
@@ -126,11 +113,6 @@ function minimalSeedWiki(targetLang: string): Record<string, string> {
 // ── The 18 scenarios ──────────────────────────────────────────────────────
 
 const FORBID_NON_LATIN = ["Chinese", "Japanese", "Korean", "Arabic", "Hindi", "Thai"]
-const FORBID_NON_CJK = [
-  "English", "French", "Italian", "Spanish", "Portuguese", "German",
-  "Dutch", "Swedish", "Russian", "Arabic", "Hindi", "Thai", "Vietnamese",
-  "Indonesian", "Polish", "Czech", "Romanian", "Turkish", "Hungarian",
-]
 
 const scenarios: RealIngestScenario[] = [
   // ── A. Baseline (4) ─────────────────────────────────────────────────────
@@ -161,16 +143,6 @@ const scenarios: RealIngestScenario[] = [
     seedWikiPages: EN_SEED_WIKI,
     languageContractForbidden: FORBID_NON_LATIN,
   },
-  {
-    name: "transformer-survey-chinese",
-    description: "Baseline Chinese: Transformer 综述 → Chinese wiki output.",
-    realContentFile: "transformer-survey-zh.md",
-    sourcePath: "raw/sources/transformer-survey-zh.md",
-    targetLanguage: "Chinese",
-    seedWikiPages: ZH_SEED_WIKI,
-    languageContractForbidden: FORBID_NON_CJK,
-  },
-
   // ── B. Non-English language coverage (5) ────────────────────────────────
   {
     name: "japanese-philosophy-ja",

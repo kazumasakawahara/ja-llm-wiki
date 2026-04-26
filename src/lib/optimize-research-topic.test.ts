@@ -40,11 +40,11 @@ beforeEach(() => {
 
 describe("optimizeResearchTopic — language directive", () => {
   it("includes MANDATORY OUTPUT LANGUAGE header in the prompt", async () => {
-    useWikiStore.getState().setOutputLanguage("Chinese")
+    useWikiStore.getState().setOutputLanguage("French")
     await optimizeResearchTopic(fakeLlmConfig(), "gap", "desc", "missing-page", "", "")
 
     const prompt = mockStreamChat.mock.calls[0][1][0].content
-    expect(prompt).toContain("MANDATORY OUTPUT LANGUAGE: Chinese")
+    expect(prompt).toContain("MANDATORY OUTPUT LANGUAGE: French")
   })
 
   it("honors auto mode by detecting from gap content", async () => {

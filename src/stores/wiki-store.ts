@@ -54,8 +54,6 @@ interface EmbeddingConfig {
 type OutputLanguage =
   | "auto"
   | "English"
-  | "Chinese"
-  | "Traditional Chinese"
   | "Japanese"
   | "Korean"
   | "Vietnamese"

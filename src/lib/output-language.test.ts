@@ -9,9 +9,9 @@ beforeEach(() => {
 })
 
 describe("getOutputLanguage", () => {
-  it("uses the explicit user setting verbatim (Chinese)", () => {
-    useWikiStore.getState().setOutputLanguage("Chinese")
-    expect(getOutputLanguage("whatever fallback text")).toBe("Chinese")
+  it("uses the explicit user setting verbatim (French)", () => {
+    useWikiStore.getState().setOutputLanguage("French")
+    expect(getOutputLanguage("whatever fallback text")).toBe("French")
   })
 
   it("explicit user setting beats fallback detection (source is English, setting is Japanese)", () => {
@@ -37,9 +37,9 @@ describe("getOutputLanguage", () => {
 
 describe("buildLanguageDirective", () => {
   it("contains the MANDATORY OUTPUT LANGUAGE header", () => {
-    useWikiStore.getState().setOutputLanguage("Chinese")
+    useWikiStore.getState().setOutputLanguage("French")
     const directive = buildLanguageDirective()
-    expect(directive).toContain("MANDATORY OUTPUT LANGUAGE: Chinese")
+    expect(directive).toContain("MANDATORY OUTPUT LANGUAGE: French")
   })
 
   it("names the language multiple times for emphasis", () => {
@@ -72,9 +72,9 @@ describe("buildLanguageDirective", () => {
 
 describe("buildLanguageReminder", () => {
   it("is a concise reminder, not a full directive", () => {
-    useWikiStore.getState().setOutputLanguage("Chinese")
+    useWikiStore.getState().setOutputLanguage("French")
     const reminder = buildLanguageReminder()
-    expect(reminder).toMatch(/All output must be in Chinese/)
+    expect(reminder).toMatch(/All output must be in French/)
     // Reminder should be ONE line, not a multi-line block
     expect(reminder.split("\n").length).toBe(1)
   })

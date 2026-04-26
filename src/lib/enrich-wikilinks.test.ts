@@ -51,7 +51,7 @@ describe("enrichWithWikilinks — language directive is built at call time", () 
   // Setting the output language AFTER the module is already imported must
   // affect the next call's prompt.
   it("uses the language configured at call time, not at module load", async () => {
-    useWikiStore.getState().setOutputLanguage("Chinese")
+    useWikiStore.getState().setOutputLanguage("French")
     mockReadFile.mockResolvedValue("some page content that is long enough to write back to disk")
     mockStreamChatReturns("some [[enriched]] page content that is long enough to write back to disk")
 
@@ -59,7 +59,7 @@ describe("enrichWithWikilinks — language directive is built at call time", () 
 
     const systemMsg = mockStreamChat.mock.calls[0][1][0]
     expect(systemMsg.role).toBe("system")
-    expect(systemMsg.content).toContain("MANDATORY OUTPUT LANGUAGE: Chinese")
+    expect(systemMsg.content).toContain("MANDATORY OUTPUT LANGUAGE: French")
   })
 
   it("picks up a language change between two successive calls", async () => {
