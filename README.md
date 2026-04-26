@@ -123,7 +123,7 @@ Step 2 (Generation): LLM takes analysis → generates wiki files
 - **ソースの追跡可能性** — 生成されたすべての Wiki ページの YAML フロントマターに `sources: []` フィールドが含まれ、寄与した raw ソースファイルへ遡及できる
 - **overview.md の自動更新** — 最新の Wiki 状態を反映するため、インジェストのたびにグローバルなサマリーページが再生成される
 - **ソースサマリーの保証** — LLM が省略した場合でも、ソースサマリーページが必ず作成されるフォールバックを備える
-- **言語認識生成** — ユーザーが設定した言語（英語または中国語）で LLM が応答する
+- **言語認識生成** — ユーザーが設定した言語（英語または日本語）で LLM が応答する
 
 ### 4. 関連性モデルを備えた知識グラフ
 
@@ -193,7 +193,7 @@ Step 2 (Generation): LLM takes analysis → generates wiki files
 ```
 Phase 1: Tokenized Search
   - English: word splitting + stop word removal
-  - Chinese: CJK bigram tokenization (每个 → [每个, 个…])
+  - Japanese: morphological segmentation via Intl.Segmenter (default) or Lindera/MeCab (high-accuracy mode, opt-in)
   - Title match bonus (+10 score)
   - Searches both wiki/ and raw/sources/
 
@@ -339,7 +339,7 @@ Phase 4: Context Assembly
 
 ### 18. その他の追加機能
 
-- **i18n** — 英語 + 中国語のインターフェース（react-i18next）
+- **i18n** — 英語 + 日本語のインターフェース（react-i18next）、初回起動時に OS ロケールを自動検出
 - **設定の永続化** — LLM プロバイダ、API キー、モデル、コンテキストサイズ、言語が Tauri Store 経由で保存される
 - **Obsidian 設定** — 推奨設定を含む `.obsidian/` ディレクトリを自動生成
 - **Markdown レンダリング** — 罫線付きの GFM テーブル、適切なコードブロック、チャットおよびプレビュー上での Wikilink 処理
