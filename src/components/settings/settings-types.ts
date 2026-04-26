@@ -1,4 +1,5 @@
 import type { CustomApiMode } from "./llm-presets"
+import type { TokenizerMode } from "@/stores/wiki-store"
 
 /**
  * Shape of the draft state each section reads from and writes into.
@@ -33,6 +34,9 @@ export interface SettingsDraft {
   // Output preferences
   outputLanguage: string
   maxHistoryMessages: number
+
+  // Search tokenization
+  tokenizerMode: TokenizerMode
 
   // UI
   uiLanguage: string

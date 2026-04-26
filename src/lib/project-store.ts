@@ -1,6 +1,6 @@
 import { load } from "@tauri-apps/plugin-store"
 import type { WikiProject } from "@/types/wiki"
-import type { LlmConfig, SearchApiConfig, EmbeddingConfig, OutputLanguage, ProviderConfigs } from "@/stores/wiki-store"
+import type { LlmConfig, SearchApiConfig, EmbeddingConfig, OutputLanguage, ProviderConfigs, TokenizerMode } from "@/stores/wiki-store"
 
 const STORE_NAME = "app-state.json"
 const RECENT_PROJECTS_KEY = "recentProjects"
@@ -127,6 +127,18 @@ export async function saveOutputLanguage(lang: OutputLanguage): Promise<void> {
 export async function loadOutputLanguage(): Promise<OutputLanguage | null> {
   const store = await getStore()
   return (await store.get<OutputLanguage>(OUTPUT_LANGUAGE_KEY)) ?? null
+}
+
+const TOKENIZER_MODE_KEY = "tokenizerMode"
+
+export async function saveTokenizerMode(mode: TokenizerMode): Promise<void> {
+  const store = await getStore()
+  await store.set(TOKENIZER_MODE_KEY, mode)
+}
+
+export async function loadTokenizerMode(): Promise<TokenizerMode | null> {
+  const store = await getStore()
+  return (await store.get<TokenizerMode>(TOKENIZER_MODE_KEY)) ?? null
 }
 
 // ── Update-check persistence ──────────────────────────────────────────────

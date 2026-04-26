@@ -20,6 +20,7 @@ import { WebSearchSection } from "./sections/web-search-section"
 import { OutputSection } from "./sections/output-section"
 import { InterfaceSection } from "./sections/interface-section"
 import { AboutSection } from "./sections/about-section"
+import { TokenizerSection } from "./sections/tokenizer-section"
 
 type CategoryId =
   | "llm"
@@ -54,6 +55,7 @@ function initialDraft(
   outputLanguage: ReturnType<typeof useWikiStore.getState>["outputLanguage"],
   maxHistoryMessages: number,
   uiLanguage: string,
+  tokenizerMode: ReturnType<typeof useWikiStore.getState>["tokenizerMode"],
 ): SettingsDraft {
   return {
     provider: llm.provider,
@@ -73,6 +75,7 @@ function initialDraft(
     searchApiKey: search.apiKey,
     outputLanguage,
     maxHistoryMessages,
+    tokenizerMode,
     uiLanguage,
   }
 }
@@ -87,6 +90,8 @@ export function SettingsView() {
   const setEmbeddingConfig = useWikiStore((s) => s.setEmbeddingConfig)
   const outputLanguage = useWikiStore((s) => s.outputLanguage)
   const setOutputLanguage = useWikiStore((s) => s.setOutputLanguage)
+  const tokenizerMode = useWikiStore((s) => s.tokenizerMode)
+  const setTokenizerMode = useWikiStore((s) => s.setTokenizerMode)
   const maxHistoryMessages = useChatStore((s) => s.maxHistoryMessages)
   const setMaxHistoryMessages = useChatStore((s) => s.setMaxHistoryMessages)
 
@@ -100,6 +105,7 @@ export function SettingsView() {
       outputLanguage,
       maxHistoryMessages,
       i18n.language,
+      tokenizerMode,
     ),
   )
 
@@ -113,6 +119,7 @@ export function SettingsView() {
         outputLanguage,
         maxHistoryMessages,
         i18n.language,
+        tokenizerMode,
       ),
     )
   }, [
@@ -121,6 +128,7 @@ export function SettingsView() {
     embeddingConfig,
     outputLanguage,
     maxHistoryMessages,
+    tokenizerMode,
   ])
 
   const setDraft: DraftSetter = useCallback((key, value) => {
@@ -133,6 +141,7 @@ export function SettingsView() {
       saveSearchApiConfig,
       saveEmbeddingConfig,
       saveOutputLanguage,
+      saveTokenizerMode,
     } = await import("@/lib/project-store")
 
     const newLlm = {
@@ -162,6 +171,8 @@ export function SettingsView() {
     await saveEmbeddingConfig(newEmbed)
     setOutputLanguage(draft.outputLanguage as typeof outputLanguage)
     await saveOutputLanguage(draft.outputLanguage as typeof outputLanguage)
+    setTokenizerMode(draft.tokenizerMode)
+    await saveTokenizerMode(draft.tokenizerMode)
     setMaxHistoryMessages(draft.maxHistoryMessages)
 
     if (draft.uiLanguage !== i18n.language) {
@@ -177,6 +188,7 @@ export function SettingsView() {
     setSearchApiConfig,
     setEmbeddingConfig,
     setOutputLanguage,
+    setTokenizerMode,
     setMaxHistoryMessages,
     outputLanguage,
   ])
@@ -193,7 +205,12 @@ export function SettingsView() {
       case "web-search":
         return <WebSearchSection draft={draft} setDraft={setDraft} />
       case "output":
-        return <OutputSection draft={draft} setDraft={setDraft} />
+        return (
+          <div className="space-y-6">
+            <OutputSection draft={draft} setDraft={setDraft} />
+            <TokenizerSection draft={draft} setDraft={setDraft} />
+          </div>
+        )
       case "interface":
         return <InterfaceSection draft={draft} setDraft={setDraft} />
       case "about":

@@ -1,3 +1,5 @@
+import { invoke } from "@tauri-apps/api/core"
+
 /**
  * Japanese tokenization for the search pipeline.
  *
@@ -103,4 +105,41 @@ export function tokenizeJapanese(text: string): string[] {
     out.push(w)
   }
   return out
+}
+
+let linderaUnavailable = false
+
+/**
+ * Lindera-backed tokenizer. Goes through the Tauri command added in
+ * Phase 3b. Returns null if the runtime isn't a Tauri window or if a
+ * previous call failed (sticky — don't keep paying the round-trip cost).
+ */
+export async function tokenizeJapaneseLindera(text: string): Promise<string[] | null> {
+  if (linderaUnavailable) return null
+  if (!text) return []
+  try {
+    const result = await invoke<string[]>("tokenize_ja", { text })
+    // Apply JS-side stop word filter on top of Lindera's POS filter as
+    // a safety net (e.g. user-tuned stop word lists in the future).
+    return result.filter((w) => !JA_STOP_WORDS.has(w))
+  } catch (err) {
+    console.warn("[tokenize-ja] Lindera unavailable, falling back to Intl.Segmenter:", err)
+    linderaUnavailable = true
+    return null
+  }
+}
+
+/**
+ * High-level dispatcher: pick Lindera or Intl.Segmenter based on the
+ * runtime preference, with automatic fallback.
+ */
+export async function tokenizeJapaneseAdaptive(
+  text: string,
+  mode: "auto" | "lindera",
+): Promise<string[]> {
+  if (mode === "lindera") {
+    const r = await tokenizeJapaneseLindera(text)
+    if (r !== null) return r
+  }
+  return tokenizeJapanese(text)
 }

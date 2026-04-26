@@ -5,7 +5,7 @@ import { useWikiStore } from "@/stores/wiki-store"
 import { useReviewStore } from "@/stores/review-store"
 import { useChatStore } from "@/stores/chat-store"
 import { listDirectory, openProject } from "@/commands/fs"
-import { getLastProject, getRecentProjects, saveLastProject, loadLlmConfig, loadLanguage, loadSearchApiConfig, loadEmbeddingConfig, loadOutputLanguage, loadProviderConfigs, loadActivePresetId } from "@/lib/project-store"
+import { getLastProject, getRecentProjects, saveLastProject, loadLlmConfig, loadLanguage, loadSearchApiConfig, loadEmbeddingConfig, loadOutputLanguage, loadProviderConfigs, loadActivePresetId, loadTokenizerMode } from "@/lib/project-store"
 import { loadReviewItems, loadChatHistory } from "@/lib/persist"
 import { setupAutoSave } from "@/lib/auto-save"
 import { startClipWatcher } from "@/lib/clip-watcher"
@@ -131,6 +131,10 @@ function App() {
         const LEGACY_OUTPUT_VALUES = new Set(["Chinese", "Traditional Chinese"])
         if (savedOutputLang && !LEGACY_OUTPUT_VALUES.has(savedOutputLang)) {
           useWikiStore.getState().setOutputLanguage(savedOutputLang)
+        }
+        const savedTokenizerMode = await loadTokenizerMode()
+        if (savedTokenizerMode === "auto" || savedTokenizerMode === "lindera") {
+          useWikiStore.getState().setTokenizerMode(savedTokenizerMode)
         }
         const savedLang = await loadLanguage()
         // `"zh"` was a valid UI language in older builds but has been

@@ -1,7 +1,7 @@
 import { readFile, listDirectory } from "@/commands/fs"
 import type { FileNode } from "@/types/wiki"
 import { normalizePath, getFileStem } from "@/lib/path-utils"
-import { hasJapanese, tokenizeJapanese } from "./tokenize-ja"
+import { hasJapanese, tokenizeJapanese, tokenizeJapaneseAdaptive } from "./tokenize-ja"
 
 export interface SearchResult {
   path: string
@@ -169,7 +169,29 @@ export async function searchWiki(
 
   const tokens = tokenizeQuery(query)
   // Fallback: if all tokens were filtered out, use the trimmed query as a single token
-  const effectiveTokens = tokens.length > 0 ? tokens : [query.trim().toLowerCase()]
+  let effectiveTokens = tokens.length > 0 ? tokens : [query.trim().toLowerCase()]
+
+  // For Japanese queries with the Lindera mode active, augment the
+  // token set with morphological lemmas so verb conjugations match
+  // their base forms (e.g. "走った" haystack → "走る" lemma matches).
+  // Intl.Segmenter (the "auto" mode) is already covered upstream by
+  // tokenizeQuery → tokenizeJapanese, so this branch only adds value
+  // for "lindera".
+  if (hasJapanese(query)) {
+    try {
+      const { useWikiStore } = await import("@/stores/wiki-store")
+      const mode = useWikiStore.getState().tokenizerMode ?? "auto"
+      if (mode === "lindera") {
+        const adaptive = await tokenizeJapaneseAdaptive(query, mode)
+        if (adaptive.length > 0) {
+          effectiveTokens = [...new Set([...effectiveTokens, ...adaptive])]
+        }
+      }
+    } catch (err) {
+      console.warn("[searchWiki] Lindera path failed, sticking with Intl.Segmenter tokens:", err)
+    }
+  }
+
   const results: SearchResult[] = []
 
   // Search wiki pages
