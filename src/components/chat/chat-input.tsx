@@ -35,6 +35,10 @@ export function ChatInput({ onSend, onStop, isStreaming, placeholder }: ChatInpu
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
       if (e.key === "Enter" && !e.shiftKey) {
+        // Block IME confirmation: native isComposing OR legacy keyCode 229.
+        // Different IMEs (macOS Kotoeri, Windows MS-IME, Google IME) use
+        // different signals — checking both is the only reliable approach.
+        if (e.nativeEvent.isComposing || e.keyCode === 229) return
         e.preventDefault()
         handleSend()
       }
