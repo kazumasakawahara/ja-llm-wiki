@@ -179,9 +179,127 @@ ${BASE_CONTRADICTION_JA}
 `,
 }
 
+const readingTemplateJa: WikiTemplate = {
+  id: "reading",
+  name: "読書",
+  description: "登場人物・テーマ・プロット・章ごとのメモを記録する",
+  icon: "📚",
+  extraDirs: ["wiki/characters", "wiki/themes", "wiki/plot-threads", "wiki/chapters"],
+  schema: `# Wiki スキーマ — 読書
+
+## ページタイプ
+
+| Type | Directory | Purpose |
+|------|-----------|---------|
+${BASE_SCHEMA_TYPES_JA}
+| character | wiki/characters/ | 作中の人物 |
+| theme | wiki/themes/ | 繰り返されるアイデア・モチーフ・象徴 |
+| plot-thread | wiki/plot-threads/ | 追跡する物語のストーリーラインや弧 |
+| chapter | wiki/chapters/ | 章ごとのメモと要約 |
+
+## 命名規則
+
+${BASE_NAMING_JA}
+- character: 人物名を kebab-case (例: \`elizabeth-bennet.md\`)
+- theme: テーマ的な名詞句 (例: \`social-class-mobility.md\`, \`deception-vs-honesty.md\`)
+- plot-thread: 弧の説明 (例: \`darcys-redemption-arc.md\`)
+- chapter: \`ch-NN-slug.md\` (例: \`ch-01-opening-scene.md\`)
+
+## Frontmatter
+
+${BASE_FRONTMATTER_JA}
+
+character ページはさらに:
+\`\`\`yaml
+first_appearance: "Ch. N"
+role: protagonist | antagonist | supporting | minor
+\`\`\`
+
+chapter ページはさらに:
+\`\`\`yaml
+chapter: N
+pages: "1-24"
+\`\`\`
+
+## Index フォーマット
+
+${BASE_INDEX_FORMAT_JA}
+
+## Log フォーマット
+
+${BASE_LOG_FORMAT_JA}
+
+## 相互参照ルール
+
+${BASE_CROSSREF_JA}
+- chapter のメモは登場人物を \`related:\` で参照する
+- theme ページは、そのテーマが顕著な章にリンクする
+- plot-thread ページは、その弧を進めた章を列挙する
+
+## 矛盾の取り扱い
+
+${BASE_CONTRADICTION_JA}
+
+## 読書固有の慣習
+
+- chapter ページは読書中または読了直後に書く — 鮮度のある反応を捉える
+- chapter のメモではプロット要約と個人的な解釈を区別する
+- theme ページは「テーマが存在する」と書くだけでなく、本全体での*展開*を追跡する
+- 未解決のプロットは \`status: open\` で明記する
+- 重要な引用は再発見できるようにページ番号をメモする
+`,
+  purpose: `# プロジェクトの目的 — 読書
+
+## 書誌情報
+
+**タイトル:**
+**著者:**
+**刊行年:**
+**ジャンル:**
+
+## なぜこの本を読むのか
+
+<!-- 何に惹かれたか? この本から何を得たいか? -->
+
+## 追跡したい主要テーマ
+
+<!-- 期待する/追いたいテーマの線は? -->
+
+1.
+2.
+3.
+
+## 読み始める前の問い
+
+<!-- 読了時に答えが欲しい/掘り下げたい問いは? -->
+
+1.
+2.
+
+## 読書ペース
+
+**開始日:**
+**目標完了日:**
+**現在の章:**
+
+## 第一印象
+
+<!-- 最初の章または最初の読書セッション後に更新。 -->
+
+>
+
+## 最終的な学び
+
+<!-- 読了後に書く。本のメッセージは何だったか? -->
+
+>
+`,
+}
+
 // Tasks 20-23 will replace these EN fallbacks with real Japanese versions.
 // Until then, missing-locale fallback to EN keeps users functional.
 export const TEMPLATES_JA: WikiTemplate[] = [
   researchTemplateJa,
-  ...TEMPLATES_EN.filter((t) => t.id !== "research"),
+  readingTemplateJa,
+  ...TEMPLATES_EN.filter((t) => t.id !== "research" && t.id !== "reading"),
 ]
