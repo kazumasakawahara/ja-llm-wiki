@@ -33,9 +33,9 @@ export function buildLanguageDirective(fallbackText: string = ""): string {
     lines.push(
       "",
       "## 日本語特有のガイドライン",
-      "- 外来語・固有名詞・技術用語はカタカナ表記を基本とする (例: Transformer→トランスフォーマー、Embedding→エンベディング)。ただし広く定着している英語表記 (e.g. API, JSON, HTTP, GPU, LLM) はそのまま英字でよい。",
+      "- 外来語・固有名詞・技術用語はカタカナ表記を基本とする (例: Transformer→トランスフォーマー、Embedding→エンベディング)。ただし広く定着している英語表記 (e.g. API, JSON, HTTP, URL, PDF, CSV, GPU, SDK, LLM) はそのまま英字でよい。",
       "- wiki ページタイトルは可能な限り簡潔な日本語の名詞句にする。",
-      "- ファイル名 (slug) は kebab-case を維持し、必要に応じて kanji/kana → ローマ字 (例: title=「機械学習」 → file=`machine-learning.md`)。",
+      "- ファイル名 (slug) は Unicode 文字をそのまま保持する (例: title=「機械学習」 → file=`機械学習.md`)。空白はハイフンに変換するが、kanji/kana を強制的にローマ字化する必要はない。",
       "- 文体は「である調」を基本とし、ユーザーが「です・ます調」で問いかけた場合はその文体に合わせる。",
       "- 引用は [1], [2] のように半角の角括弧で記述する (全角の【】は使わない)。",
     )
