@@ -139,7 +139,17 @@
         "customModelTooltip": "カスタムモデル ID を入力",
         "apiMode": "API モード",
         "contextWindow": "コンテキストウィンドウ",
-        "endpoint": "エンドポイント"
+        "endpoint": "エンドポイント",
+        "endpointWillUse": "次のエンドポイントを使用:",
+        "endpointAutoApply": "(入力欄からフォーカスが外れたとき自動適用)",
+        "empty": "(空)",
+        "cliStatus": "CLI ステータス",
+        "cliChecking": "確認中…",
+        "cliRecheck": "再確認",
+        "cliDetecting": "ローカルの claude バイナリを検出中…",
+        "cliDetectedReady": "検出済み{{versionSuffix}}。ローカルのサブスクリプションを使用可能です — API キーは不要。",
+        "cliUnavailable": "claude CLI が見つかりません。",
+        "cliInstallHint": "{{cmd}} でインストールしてから再確認してください。"
       },
       "embedding": {
         "title": "ベクター埋め込み",

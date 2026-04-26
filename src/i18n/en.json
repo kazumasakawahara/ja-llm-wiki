@@ -139,7 +139,17 @@
         "customModelTooltip": "Type a custom model id",
         "apiMode": "API Mode",
         "contextWindow": "Context window",
-        "endpoint": "Endpoint"
+        "endpoint": "Endpoint",
+        "endpointWillUse": "Will use",
+        "endpointAutoApply": "(applied when input loses focus)",
+        "empty": "(empty)",
+        "cliStatus": "CLI status",
+        "cliChecking": "Checking…",
+        "cliRecheck": "Re-check",
+        "cliDetecting": "Detecting local claude binary…",
+        "cliDetectedReady": "Detected{{versionSuffix}}. Ready to use your local subscription — no API key needed.",
+        "cliUnavailable": "claude CLI not available.",
+        "cliInstallHint": "Install from {{cmd}} then re-check."
       },
       "embedding": {
         "title": "Vector Embeddings",
