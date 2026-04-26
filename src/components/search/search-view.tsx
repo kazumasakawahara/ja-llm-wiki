@@ -5,6 +5,7 @@ import { readFile } from "@/commands/fs"
 import { searchWiki, type SearchResult } from "@/lib/search"
 import { useTranslation } from "react-i18next"
 import { normalizePath } from "@/lib/path-utils"
+import { isImeConfirm } from "@/lib/ime-utils"
 
 export function SearchView() {
   const { t } = useTranslation()
@@ -58,7 +59,12 @@ export function SearchView() {
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            onKeyDown={(e) => { if (e.key === "Enter") doSearch(query) }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                if (isImeConfirm(e)) return
+                doSearch(query)
+              }
+            }}
             placeholder={t("search.placeholder") + " (Enter to search)"}
             autoFocus
             className="w-full rounded-md border bg-background py-2 pl-9 pr-3 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
