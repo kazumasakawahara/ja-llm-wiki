@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { FolderOpen } from "lucide-react"
 import { createProject, writeFile, createDirectory } from "@/commands/fs"
-import { getTemplate } from "@/lib/templates"
+import { getTemplate, type TemplateLocale } from "@/lib/templates"
 import { TemplatePicker } from "@/components/project/template-picker"
 import type { WikiProject } from "@/types/wiki"
 import { normalizePath } from "@/lib/path-utils"
@@ -21,7 +21,7 @@ interface CreateProjectDialogProps {
 }
 
 export function CreateProjectDialog({ open: isOpen, onOpenChange, onCreated }: CreateProjectDialogProps) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const [name, setName] = useState("")
   const [path, setPath] = useState("")
   const [selectedTemplate, setSelectedTemplate] = useState("general")
@@ -50,7 +50,8 @@ export function CreateProjectDialog({ open: isOpen, onOpenChange, onCreated }: C
       const project = await createProject(name.trim(), path.trim())
       const pp = normalizePath(project.path)
 
-      const template = getTemplate(selectedTemplate)
+      const locale: TemplateLocale = i18n.language === "ja" ? "ja" : "en"
+      const template = getTemplate(selectedTemplate, locale)
       await writeFile(`${pp}/schema.md`, template.schema)
       await writeFile(`${pp}/purpose.md`, template.purpose)
       for (const dir of template.extraDirs) {
