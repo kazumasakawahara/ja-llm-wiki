@@ -123,12 +123,26 @@ function App() {
           useWikiStore.getState().setEmbeddingConfig(savedEmbeddingConfig)
         }
         const savedOutputLang = await loadOutputLanguage()
-        if (savedOutputLang) {
+        // Legacy installs may have persisted Chinese variants that were
+        // removed from `OutputLanguage` in an earlier change. Treat
+        // those values as if no preference were saved so the store's
+        // default ("auto") prevails — silently forcing Chinese output
+        // would surprise the user.
+        const LEGACY_OUTPUT_VALUES = new Set(["Chinese", "Traditional Chinese"])
+        if (savedOutputLang && !LEGACY_OUTPUT_VALUES.has(savedOutputLang)) {
           useWikiStore.getState().setOutputLanguage(savedOutputLang)
         }
         const savedLang = await loadLanguage()
-        if (savedLang) {
-          await i18n.changeLanguage(savedLang)
+        // `"zh"` was a valid UI language in older builds but has been
+        // dropped. Treat it (and any other unrecognized value) as "no
+        // preference" and fall back to OS locale detection.
+        const validSaved = savedLang === "en" || savedLang === "ja" ? savedLang : null
+        if (validSaved) {
+          await i18n.changeLanguage(validSaved)
+        } else {
+          const { detectInitialLocale } = await import("@/lib/locale-detect")
+          const detected = detectInitialLocale(navigator.language)
+          await i18n.changeLanguage(detected)
         }
         const lastProject = await getLastProject()
         if (lastProject) {
