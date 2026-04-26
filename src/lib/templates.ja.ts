@@ -424,9 +424,150 @@ ${BASE_CONTRADICTION_JA}
 `,
 }
 
+const businessTemplateJa: WikiTemplate = {
+  id: "business",
+  name: "ビジネス",
+  description: "チームのミーティング・意思決定・プロジェクト・ステークホルダーの文脈を管理する",
+  icon: "💼",
+  extraDirs: ["wiki/meetings", "wiki/decisions", "wiki/projects", "wiki/stakeholders"],
+  schema: `# Wiki スキーマ — ビジネス / チーム
+
+## ページタイプ
+
+| Type | Directory | Purpose |
+|------|-----------|---------|
+${BASE_SCHEMA_TYPES_JA}
+| meeting | wiki/meetings/ | ミーティングノート・アジェンダ・アクションアイテム |
+| decision | wiki/decisions/ | アーキテクチャ上または戦略上の意思決定 (ADR 形式) |
+| project | wiki/projects/ | プロジェクトのブリーフ・状況・振り返り |
+| stakeholder | wiki/stakeholders/ | 関与する人物・チーム・組織 |
+
+## 命名規則
+
+${BASE_NAMING_JA}
+- meeting: \`YYYY-MM-DD-slug.md\` (例: \`2024-03-15-sprint-planning.md\`)
+- decision: \`NNN-slug.md\` (例: \`001-adopt-typescript.md\`)
+- project: 説明的なスラッグ (例: \`payments-redesign.md\`)
+- stakeholder: 氏名またはチーム名を kebab-case で (例: \`alice-chen.md\`, \`platform-team.md\`)
+
+## Frontmatter
+
+${BASE_FRONTMATTER_JA}
+
+meeting ページはさらに:
+\`\`\`yaml
+date: YYYY-MM-DD
+attendees: []
+action_items: []
+\`\`\`
+
+decision ページはさらに:
+\`\`\`yaml
+status: proposed | accepted | deprecated | superseded
+deciders: []
+date: YYYY-MM-DD
+supersedes: ""   # 置き換え対象の ADR スラッグ (該当する場合)
+\`\`\`
+
+project ページはさらに:
+\`\`\`yaml
+status: planned | active | on-hold | complete | cancelled
+owner: ""
+start_date: YYYY-MM-DD
+target_date: YYYY-MM-DD
+\`\`\`
+
+## Index フォーマット
+
+${BASE_INDEX_FORMAT_JA}
+
+## Log フォーマット
+
+${BASE_LOG_FORMAT_JA}
+
+## 相互参照ルール
+
+${BASE_CROSSREF_JA}
+- meeting ノートは出席者を \`attendees:\` frontmatter および \`[[stakeholder-slug]]\` リンクで参照する
+- decision ページは、その意思決定が議論された meeting にリンクする
+- project ページは関連する重要な decision を \`related:\` でリンクする
+- stakeholder ページは、その人物が関わる project と decision を列挙する
+
+## 矛盾の取り扱い
+
+${BASE_CONTRADICTION_JA}
+
+## ビジネス固有の慣習
+
+- ミーティングノートは開催中または 24 時間以内に書く — 記憶はすぐに薄れる
+- アクションアイテムには担当者と期限を明記する。両方が無いと実行されない
+- decision ページは決定内容だけでなく*文脈と帰結*を残す
+- 廃止された decision は、それを置き換えた decision にリンクする
+- project は完了時に振り返りセクションを追記する
+`,
+  purpose: `# プロジェクトの目的 — ビジネス / チーム
+
+## ビジネス文脈
+
+**組織 / チーム:**
+**ドメイン:**
+**対象期間:**
+
+## 目的 (Objectives)
+
+<!-- この wiki が支える、トップレベルのビジネス目的は何か? -->
+
+1.
+2.
+3.
+
+## 主要プロジェクト
+
+<!-- ハイレベルな一覧 — 詳細な project ページは wiki/projects/ に作成する -->
+
+-
+-
+
+## 主要ステークホルダー
+
+<!-- 関与する主要な人物やチームは? -->
+
+-
+-
+
+## 進行中の意思決定
+
+<!-- 現在検討中の意思決定 — ADR ページは wiki/decisions/ に作成する -->
+
+-
+-
+
+## 指標 / 成功基準
+
+<!-- 目的に向けた進捗をチームはどう測るか? -->
+
+-
+
+## 制約とリスク
+
+<!-- 既知の制約 (予算・時間・組織) と追跡すべきリスク -->
+
+-
+
+## レビューの頻度
+
+**週次同期ノート:**
+**月次ステータス更新:**
+**四半期レトロスペクティブ:**
+`,
+}
+
 export const TEMPLATES_JA: WikiTemplate[] = [
   researchTemplateJa,
   readingTemplateJa,
   personalTemplateJa,
-  ...TEMPLATES_EN.filter((t) => t.id !== "research" && t.id !== "reading" && t.id !== "personal"),
+  businessTemplateJa,
+  ...TEMPLATES_EN.filter(
+    (t) => t.id !== "research" && t.id !== "reading" && t.id !== "personal" && t.id !== "business",
+  ),
 ]
