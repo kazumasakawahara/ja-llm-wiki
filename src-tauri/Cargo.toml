@@ -1,6 +1,6 @@
 [package]
 name = "llm-wiki"
-version = "0.3.13"
+version = "0.4.0"
 description = "LLM Wiki - A personal knowledge base for LLM concepts"
 authors = []
 edition = "2021"
@@ -43,6 +43,12 @@ futures = "0.3"
 tokio = { version = "1", features = ["process", "io-util", "sync", "macros", "rt"] }
 which = "7"
 uuid = { version = "1", features = ["v4"] }
+# Japanese morphological analyzer. The `embed-ipadic` feature embeds the
+# IPADIC dictionary into the binary (~50MB compressed) so no extra files
+# are shipped at runtime. `default-features = false` drops the `mmap`
+# feature (used to mmap on-disk dictionaries) since we ship the dict
+# embedded. We pin to a known-working release; bump cautiously.
+lindera = { version = "3.0.7", default-features = false, features = ["embed-ipadic"] }
 
 [dev-dependencies]
 tokio = { version = "1", features = ["macros", "rt", "rt-multi-thread"] }

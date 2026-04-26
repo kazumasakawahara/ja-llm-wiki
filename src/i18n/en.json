@@ -13,7 +13,8 @@
     "settings": "Settings",
     "switchProject": "Switch Project",
     "updateAvailable": "Update available",
-    "updateAvailableSuffix": " · update"
+    "updateAvailableSuffix": " · update",
+    "deepResearch": "Deep Research"
   },
   "welcome": {
     "newProject": "New Project",
@@ -25,10 +26,12 @@
     "name": "Project Name",
     "namePlaceholder": "my-research-wiki",
     "parentDir": "Parent Directory",
+    "selectParentDir": "Select Parent Directory",
     "template": "Template",
     "cancel": "Cancel",
     "create": "Create",
-    "creating": "Creating..."
+    "creating": "Creating...",
+    "errorRequired": "Name and parent directory are required"
   },
   "sources": {
     "title": "Raw Sources",
@@ -37,6 +40,9 @@
     "noSources": "No sources yet",
     "importHint": "Import documents to start building your wiki",
     "importFiles": "Import Files",
+    "importFilesDialog": "Import Source Files",
+    "importFolderDialog": "Import Source Folder",
+    "refresh": "Refresh",
     "ingest": "Ingest",
     "delete": "Delete source and related wiki pages",
     "deleteConfirm": "Delete \"{{name}}\" and its related wiki pages?\n\nThis will:\n- Delete the source file\n- Delete wiki pages generated from this source\n- Update index.md",
@@ -45,19 +51,28 @@
   },
   "chat": {
     "placeholder": "Ask about your wiki...",
+    "placeholderHelp": "Type a message... (Enter to send, Shift+Enter for newline)",
     "ingestPlaceholder": "Discuss the source or ask follow-up questions...",
     "saveToWiki": "Save to Wiki",
     "saving": "Saving...",
     "saved": "Saved!",
     "writeToWiki": "Write to Wiki",
     "emptyHint": "Ask a question or start an ingest to begin.",
-    "sources": "Sources"
+    "sources": "Sources",
+    "stopGeneration": "Stop generation",
+    "sendMessage": "Send message",
+    "regenerate": "Regenerate this response",
+    "copyToClipboard": "Copy to clipboard",
+    "regenerateLabel": "Regenerate",
+    "copyLabel": "Copy",
+    "copiedLabel": "Copied!"
   },
   "search": {
     "title": "Search",
     "placeholder": "Search wiki pages...",
     "noResults": "No results found",
-    "startSearching": "Type to search wiki pages"
+    "startSearching": "Type to search wiki pages",
+    "startHint": "Press Enter to search"
   },
   "lint": {
     "title": "Lint",
@@ -71,7 +86,8 @@
     "contradiction": "Contradiction",
     "stale": "Stale Content",
     "missingPage": "Missing Page",
-    "suggestion": "Suggestion"
+    "suggestion": "Suggestion",
+    "startHint": "Run lint to check wiki health"
   },
   "review": {
     "title": "Review",
@@ -119,7 +135,21 @@
         "apiKeyPlaceholder": "Enter your API key",
         "savedBadge": "saved",
         "configuredBadge": "configured",
-        "activeBadge": "● active"
+        "activeBadge": "● active",
+        "customModelTooltip": "Type a custom model id",
+        "apiMode": "API Mode",
+        "contextWindow": "Context window",
+        "endpoint": "Endpoint",
+        "endpointWillUse": "Will use",
+        "endpointAutoApply": "(applied when input loses focus)",
+        "empty": "(empty)",
+        "cliStatus": "CLI status",
+        "cliChecking": "Checking…",
+        "cliRecheck": "Re-check",
+        "cliDetecting": "Detecting local claude binary…",
+        "cliDetectedReady": "Detected{{versionSuffix}}. Ready to use your local subscription — no API key needed.",
+        "cliUnavailable": "claude CLI not available.",
+        "cliInstallHint": "Install from {{cmd}} then re-check."
       },
       "embedding": {
         "title": "Vector Embeddings",
@@ -148,7 +178,8 @@
       },
       "webSearch": {
         "title": "Web Search",
-        "description": "Used by Deep Research to pull fresh external context."
+        "description": "Used by Deep Research to pull fresh external context.",
+        "tavilyApiKeyPlaceholder": "Enter your Tavily API key (tavily.com)"
       },
       "output": {
         "title": "Output Preferences",
@@ -181,6 +212,10 @@
         "openDownload": "Open download page",
         "later": "Later",
         "autoCheck": "Check for updates automatically on startup (at most once every 6 hours)",
+        "tokenizer": "Japanese tokenizer",
+        "tokenizerHint": "Tokenization engine for Japanese search queries. Auto uses the OS-provided Intl.Segmenter (fast, lightweight). Lindera is the MeCab-compatible high-accuracy mode and ships with a dictionary that adds ~50MB to the binary.",
+        "tokenizerAuto": "Auto (Intl.Segmenter)",
+        "tokenizerLindera": "Lindera (MeCab-compatible / high accuracy)",
         "appDescription": "An LLM-driven personal knowledge base. Source:"
       }
     }
@@ -192,7 +227,15 @@
   "activity": {
     "processing": "Processing: {{title}}",
     "done": "Done: {{title}}",
-    "clearCompleted": "Clear completed"
+    "clearCompleted": "Clear completed",
+    "cancelAll": "Cancel all queued and running tasks",
+    "retry": "Retry",
+    "cancel": "Cancel",
+    "ingestQueue": "Ingest Queue"
+  },
+  "research": {
+    "topicPlaceholder": "Enter a research topic...",
+    "noTasksYet": "No research tasks yet"
   },
   "fileTree": {
     "noProject": "No project open"

@@ -1,20 +1,15 @@
 /**
  * Structural parity check for the translation bundles.
  *
- * If en.json grows a key that zh.json doesn't have (or vice-versa),
+ * If en.json grows a key that ja.json doesn't have (or vice-versa),
  * the app either falls back to the raw key at runtime (ugly) or
- * silently shows the English string to Chinese users. Both are
+ * silently shows the English string to Japanese users. Both are
  * regressions we want to catch at test time.
- *
- * This test is deliberately string-based rather than going through
- * i18next's runtime — it should fail on the FILE contents before
- * anyone notices in the UI.
  */
 import { describe, it, expect } from "vitest"
 import en from "./en.json"
-import zh from "./zh.json"
+import ja from "./ja.json"
 
-/** Flattens a nested translation object to "a.b.c" dot-path keys. */
 function flattenKeys(obj: unknown, prefix = ""): string[] {
   if (obj === null || typeof obj !== "object") return []
   const out: string[] = []
@@ -29,31 +24,30 @@ function flattenKeys(obj: unknown, prefix = ""): string[] {
   return out
 }
 
-describe("i18n bundle parity (en.json ↔ zh.json)", () => {
+describe("i18n bundle parity (en.json ↔ ja.json)", () => {
   const enKeys = new Set(flattenKeys(en))
-  const zhKeys = new Set(flattenKeys(zh))
+  const jaKeys = new Set(flattenKeys(ja))
 
-  it("every en.json key is also in zh.json", () => {
-    const missing = [...enKeys].filter((k) => !zhKeys.has(k)).sort()
+  it("every en.json key is also in ja.json", () => {
+    const missing = [...enKeys].filter((k) => !jaKeys.has(k)).sort()
     expect(
       missing,
-      `Keys in en.json but missing from zh.json — add Chinese translations for:\n  ${missing.join("\n  ")}`,
+      `Keys in en.json but missing from ja.json — add Japanese translations for:\n  ${missing.join("\n  ")}`,
     ).toEqual([])
   })
 
-  it("every zh.json key is also in en.json (no orphaned zh-only strings)", () => {
-    const orphaned = [...zhKeys].filter((k) => !enKeys.has(k)).sort()
+  it("every ja.json key is also in en.json (no orphaned ja-only strings)", () => {
+    const orphaned = [...jaKeys].filter((k) => !enKeys.has(k)).sort()
     expect(
       orphaned,
-      `Keys in zh.json but missing from en.json — either add English translations or remove the stale zh-only keys:\n  ${orphaned.join("\n  ")}`,
+      `Keys in ja.json but missing from en.json — either add English translations or remove the stale ja-only keys:\n  ${orphaned.join("\n  ")}`,
     ).toEqual([])
   })
 
-  it("every leaf value is a non-empty string (no null / empty / placeholder slips)", () => {
+  it("every leaf value is a non-empty string", () => {
     const check = (bundle: unknown, label: string) => {
       const keys = flattenKeys(bundle)
       for (const path of keys) {
-        // Walk back to pull the value.
         let ref: unknown = bundle
         for (const part of path.split(".")) {
           ref = (ref as Record<string, unknown>)[part]
@@ -63,12 +57,10 @@ describe("i18n bundle parity (en.json ↔ zh.json)", () => {
       }
     }
     check(en, "en.json")
-    check(zh, "zh.json")
+    check(ja, "ja.json")
   })
 
   it("pluralization keys come in pairs: every foo_plural has a matching foo", () => {
-    // i18next plural convention — a `foo_plural` without `foo` means
-    // the singular form will fall back to the raw key at runtime.
     const check = (bundle: unknown, label: string) => {
       const keys = new Set(flattenKeys(bundle))
       for (const k of keys) {
@@ -82,6 +74,6 @@ describe("i18n bundle parity (en.json ↔ zh.json)", () => {
       }
     }
     check(en, "en.json")
-    check(zh, "zh.json")
+    check(ja, "ja.json")
   })
 })

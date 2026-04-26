@@ -104,3 +104,40 @@ describe("isGreeting — negative cases", () => {
     })
   }
 })
+
+describe("isGreeting — Japanese (extended)", () => {
+  const greetings = [
+    "こんにちは",
+    "こんばんは",
+    "おはよう",
+    "おはようございます",
+    "やあ",
+    "どうも",
+    "はじめまして",
+    "もしもし",
+    "お疲れ様",
+    "お疲れさま",
+    "お疲れ",
+    "ご無沙汰しております",
+    "ご無沙汰",
+    "おっす",
+    "ちわ",
+    "やっほー",
+  ]
+  for (const g of greetings) {
+    it(`recognises "${g}" as a greeting`, () => {
+      expect(isGreeting(g)).toBe(true)
+    })
+  }
+
+  const notGreetings = [
+    "こんにちは、機械学習について教えて",
+    "おはようと言われた",
+    "お疲れ様の意味は？",
+  ]
+  for (const t of notGreetings) {
+    it(`does NOT match informational query "${t}"`, () => {
+      expect(isGreeting(t)).toBe(false)
+    })
+  }
+})

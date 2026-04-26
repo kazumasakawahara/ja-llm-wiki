@@ -1,4 +1,5 @@
 import { useState, useCallback } from "react"
+import { useTranslation } from "react-i18next"
 import {
   Link2Off,
   Unlink,
@@ -26,6 +27,7 @@ const typeConfig: Record<string, { icon: typeof AlertTriangle; label: string }> 
 }
 
 export function LintView() {
+  const { t } = useTranslation()
   const project = useWikiStore((s) => s.project)
   const llmConfig = useWikiStore((s) => s.llmConfig)
   const setSelectedFile = useWikiStore((s) => s.setSelectedFile)
@@ -232,7 +234,7 @@ export function LintView() {
         {!hasRun ? (
           <div className="flex flex-col items-center justify-center gap-2 p-8 text-center text-sm text-muted-foreground">
             <CheckCircle2 className="h-8 w-8 text-muted-foreground/30" />
-            <p>Run lint to check wiki health</p>
+            <p>{t("lint.startHint")}</p>
             <p className="text-xs">Checks for orphan pages, broken links, and more</p>
           </div>
         ) : results.length === 0 ? (

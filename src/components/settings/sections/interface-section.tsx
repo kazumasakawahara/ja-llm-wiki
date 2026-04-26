@@ -9,7 +9,7 @@ interface Props {
 
 const UI_LANGUAGES = [
   { value: "en", label: "English" },
-  { value: "zh", label: "中文" },
+  { value: "ja", label: "日本語" },
 ]
 
 export function InterfaceSection({ draft, setDraft }: Props) {

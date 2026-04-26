@@ -14,7 +14,7 @@ import type { SearchScenario } from "@/test-helpers/scenarios/types"
 
 vi.mock("@/commands/fs", () => realFs)
 
-import { searchWiki } from "./search"
+import { searchWiki, tokenizeQuery } from "./search"
 import { useWikiStore } from "@/stores/wiki-store"
 
 const FIXTURES_ROOT = path.join(
@@ -133,4 +133,32 @@ describe("search scenarios (fixture-driven)", () => {
       }
     },
   )
+})
+
+describe("tokenizeQuery — Japanese queries", () => {
+  it("returns morphological tokens for a kanji-compound Japanese query", () => {
+    const tokens = tokenizeQuery("機械学習について教えて")
+    // Either "機械学習" as one token or split into "機械" + "学習" — both are acceptable.
+    const hasContent = tokens.some((t) => t.includes("機械") || t.includes("学習"))
+    expect(hasContent).toBe(true)
+  })
+
+  it("preserves latin tokens inside an otherwise-Japanese query", () => {
+    const tokens = tokenizeQuery("Reactのhooksについて知りたい")
+    expect(tokens).toContain("react")
+    expect(tokens.some((t) => t.includes("hook"))).toBe(true)
+  })
+
+  it("does not include Japanese stop words as standalone tokens", () => {
+    const tokens = tokenizeQuery("これは何ですか")
+    expect(tokens).not.toContain("は")
+    expect(tokens).not.toContain("です")
+    expect(tokens).not.toContain("これ")
+  })
+
+  it("returns deduplicated tokens for repeated content words", () => {
+    const tokens = tokenizeQuery("猫と犬と猫について")
+    const cats = tokens.filter((t) => t === "猫")
+    expect(cats.length).toBeLessThanOrEqual(1)
+  })
 })

@@ -45,30 +45,7 @@ export const searchScenarios: SearchScenario[] = [
     },
   },
 
-  // 3. cjk-bigram — Chinese query via bigram tokenization
-  {
-    name: "cjk-bigram",
-    description:
-      "Query '注意力机制' is tokenized into bigrams ('注意', '意力', '力机', '机制'). " +
-      "The page whose content contains '注意力机制' should rank top.",
-    initialWiki: {
-      "wiki/attention-zh.md": page(
-        "注意力机制",
-        "注意力机制是 Transformer 架构的核心组件之一。",
-      ),
-      "wiki/unrelated-zh.md": page(
-        "无关页面",
-        "这个页面讨论别的话题，比如天气和足球。",
-      ),
-    },
-    query: "注意力机制",
-    expected: {
-      topResultPaths: ["wiki/attention-zh.md"],
-      excludedPaths: ["wiki/unrelated-zh.md"],
-    },
-  },
-
-  // 4. multi-token-ranking — more matches ranks higher
+  // 3. multi-token-ranking — more matches ranks higher
   {
     name: "multi-token-ranking",
     description:
@@ -89,7 +66,7 @@ export const searchScenarios: SearchScenario[] = [
     },
   },
 
-  // 5. stop-word-filtered — 'the' filtered, only meaningful tokens used
+  // 4. stop-word-filtered — 'the' filtered, only meaningful tokens used
   {
     name: "stop-word-filtered",
     description:
@@ -107,7 +84,7 @@ export const searchScenarios: SearchScenario[] = [
     },
   },
 
-  // 6. filename-exact-match-wins — the page whose filename stem EQUALS the
+  // 5. filename-exact-match-wins — the page whose filename stem EQUALS the
   //    query must rank #1 even when longer, denser pages also mention the
   //    word many times. Regression guard for the "精准匹配排到最后" bug.
   {
@@ -145,7 +122,7 @@ export const searchScenarios: SearchScenario[] = [
     },
   },
 
-  // 7. phrase-in-content-beats-scattered-tokens — a page that contains the
+  // 6. phrase-in-content-beats-scattered-tokens — a page that contains the
   //    raw query phrase should outrank a page with the same tokens scattered.
   {
     name: "phrase-in-content-beats-scattered-tokens",

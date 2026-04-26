@@ -1,4 +1,5 @@
 import { useEffect, useCallback, useState, useRef, type ChangeEvent } from "react"
+import { useTranslation } from "react-i18next"
 import Graph from "graphology"
 import { SigmaContainer, useLoadGraph, useRegisterEvents, useSigma } from "@react-sigma/core"
 import "@react-sigma/core/lib/style.css"
@@ -296,6 +297,7 @@ function ZoomControls() {
 // --- Main component ---
 
 export function GraphView() {
+  const { t } = useTranslation()
   const project = useWikiStore((s) => s.project)
   const dataVersion = useWikiStore((s) => s.dataVersion)
   const setSelectedFile = useWikiStore((s) => s.setSelectedFile)
@@ -479,7 +481,7 @@ export function GraphView() {
       <div className="flex h-full flex-col items-center justify-center gap-3 text-muted-foreground">
         <Network className="h-10 w-10 opacity-30" />
         <p className="text-sm text-destructive">{error}</p>
-        <Button variant="outline" size="sm" onClick={loadGraph}>Retry</Button>
+        <Button variant="outline" size="sm" onClick={loadGraph}>{t("activity.retry")}</Button>
       </div>
     )
   }

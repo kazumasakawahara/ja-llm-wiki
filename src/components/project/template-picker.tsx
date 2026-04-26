@@ -1,4 +1,5 @@
-import { templates } from "@/lib/templates"
+import { useTranslation } from "react-i18next"
+import { getTemplates, type TemplateLocale } from "@/lib/templates"
 import { cn } from "@/lib/utils"
 
 interface TemplatePickerProps {
@@ -7,6 +8,9 @@ interface TemplatePickerProps {
 }
 
 export function TemplatePicker({ selected, onSelect }: TemplatePickerProps) {
+  const { i18n } = useTranslation()
+  const locale: TemplateLocale = i18n.language === "ja" ? "ja" : "en"
+  const templates = getTemplates(locale)
   return (
     <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
       {templates.map((template) => (

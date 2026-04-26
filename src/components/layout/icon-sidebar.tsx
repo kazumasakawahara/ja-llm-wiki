@@ -106,7 +106,7 @@ export function IconSidebar({ onSwitchProject }: IconSidebarProps) {
                 </span>
               )}
             </TooltipTrigger>
-            <TooltipContent side="right">Deep Research</TooltipContent>
+            <TooltipContent side="right">{t("nav.deepResearch")}</TooltipContent>
           </Tooltip>
         </div>
         {/* Bottom: daemon status + settings + switch project */}

@@ -8,9 +8,9 @@ beforeEach(() => {
 
 describe("buildAnalysisPrompt language directive", () => {
   it("injects the user's explicit language setting", () => {
-    useWikiStore.getState().setOutputLanguage("Chinese")
+    useWikiStore.getState().setOutputLanguage("French")
     const prompt = buildAnalysisPrompt("purpose", "index", "english source content")
-    expect(prompt).toContain("MANDATORY OUTPUT LANGUAGE: Chinese")
+    expect(prompt).toContain("MANDATORY OUTPUT LANGUAGE: French")
   })
 
   it("uses user setting even when source is in a different language", () => {
@@ -43,9 +43,9 @@ describe("buildAnalysisPrompt language directive", () => {
 
 describe("buildGenerationPrompt language directive", () => {
   it("injects the user's explicit language setting", () => {
-    useWikiStore.getState().setOutputLanguage("Chinese")
+    useWikiStore.getState().setOutputLanguage("French")
     const prompt = buildGenerationPrompt("schema", "purpose", "index", "source.pdf")
-    expect(prompt).toContain("MANDATORY OUTPUT LANGUAGE: Chinese")
+    expect(prompt).toContain("MANDATORY OUTPUT LANGUAGE: French")
   })
 
   it("honors Vietnamese setting", () => {

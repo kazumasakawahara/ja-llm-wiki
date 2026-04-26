@@ -81,6 +81,35 @@ jobs:
           prerelease: false
           args: ${{ matrix.args }}
 
+      # Guard against silent binary-size creep. Lindera + IPADIC adds
+      # roughly +50MB on top of the prior ~100MB baseline, so 200MB
+      # leaves ~50MB headroom for future additions. If this trips,
+      # investigate before bumping the limit.
+      - name: Check release binary size budget
+        shell: bash
+        run: |
+          set -e
+          case "$RUNNER_OS" in
+            macOS)   bin=$(find src-tauri/target -path '*/release/bundle/dmg/*.dmg' | head -1) ;;
+            Linux)   bin=$(find src-tauri/target -path '*/release/bundle/appimage/*.AppImage' 2>/dev/null | head -1)
+                     [ -z "$bin" ] && bin=$(find src-tauri/target -path '*/release/bundle/deb/*.deb' | head -1) ;;
+            Windows) bin=$(find src-tauri/target -path '*/release/bundle/msi/*.msi' | head -1) ;;
+          esac
+          if [ -z "$bin" ] || [ ! -f "$bin" ]; then
+            echo "::error::No release bundle found under src-tauri/target/**/release/bundle"
+            find src-tauri/target -type d -name bundle | head -5
+            find src-tauri/target -path '*/release/bundle/*' -type f | head -20
+            exit 1
+          fi
+          size=$(stat -f%z "$bin" 2>/dev/null || stat -c%s "$bin")
+          echo "Release bundle: $bin = $size bytes ($(($size / 1024 / 1024)) MB)"
+          # 200MB ceiling — Lindera + IPADIC adds ~50MB. Adjust as the dictionary grows.
+          if [ "$size" -gt 209715200 ]; then
+            echo "::error::Release bundle exceeds 200MB budget (got $size bytes)"
+            exit 1
+          fi
+          echo "Bundle is within the 200MB budget."
+
       # On workflow_dispatch, no release is created, so the bundles
       # would otherwise be discarded with the runner. Upload them as
       # workflow artifacts so the maintainer can `gh run download`

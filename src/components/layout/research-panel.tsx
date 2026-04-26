@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useMemo } from "react"
+import { useTranslation } from "react-i18next"
 import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
 import remarkMath from "remark-math"
@@ -14,8 +15,10 @@ import { useWikiStore } from "@/stores/wiki-store"
 import { readFile } from "@/commands/fs"
 import { queueResearch } from "@/lib/deep-research"
 import { normalizePath } from "@/lib/path-utils"
+import { isImeConfirm } from "@/lib/ime-utils"
 
 export function ResearchPanel() {
+  const { t } = useTranslation()
   const tasks = useResearchStore((s) => s.tasks)
   const removeTask = useResearchStore((s) => s.removeTask)
   const setPanelOpen = useResearchStore((s) => s.setPanelOpen)
@@ -64,8 +67,13 @@ export function ResearchPanel() {
         <input
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
-          onKeyDown={(e) => { if (e.key === "Enter") handleStartResearch() }}
-          placeholder="Enter a research topic..."
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              if (isImeConfirm(e)) return
+              handleStartResearch()
+            }
+          }}
+          placeholder={t("research.topicPlaceholder")}
           className="flex-1 rounded border bg-background px-2 py-1 text-xs outline-none placeholder:text-muted-foreground focus:ring-1 focus:ring-ring"
         />
         <Button size="icon" variant="ghost" className="h-7 w-7" onClick={handleStartResearch} disabled={!inputValue.trim()}>
@@ -77,7 +85,7 @@ export function ResearchPanel() {
         {tasks.length === 0 ? (
           <div className="flex flex-col items-center justify-center gap-2 p-8 text-center text-xs text-muted-foreground">
             <Search className="h-8 w-8 opacity-20" />
-            <p>No research tasks yet</p>
+            <p>{t("research.noTasksYet")}</p>
             <p>Enter a topic above or click "Deep Research" in Review</p>
           </div>
         ) : (

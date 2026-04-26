@@ -9,9 +9,9 @@ beforeEach(() => {
 })
 
 describe("getOutputLanguage", () => {
-  it("uses the explicit user setting verbatim (Chinese)", () => {
-    useWikiStore.getState().setOutputLanguage("Chinese")
-    expect(getOutputLanguage("whatever fallback text")).toBe("Chinese")
+  it("uses the explicit user setting verbatim (French)", () => {
+    useWikiStore.getState().setOutputLanguage("French")
+    expect(getOutputLanguage("whatever fallback text")).toBe("French")
   })
 
   it("explicit user setting beats fallback detection (source is English, setting is Japanese)", () => {
@@ -37,9 +37,9 @@ describe("getOutputLanguage", () => {
 
 describe("buildLanguageDirective", () => {
   it("contains the MANDATORY OUTPUT LANGUAGE header", () => {
-    useWikiStore.getState().setOutputLanguage("Chinese")
+    useWikiStore.getState().setOutputLanguage("French")
     const directive = buildLanguageDirective()
-    expect(directive).toContain("MANDATORY OUTPUT LANGUAGE: Chinese")
+    expect(directive).toContain("MANDATORY OUTPUT LANGUAGE: French")
   })
 
   it("names the language multiple times for emphasis", () => {
@@ -72,9 +72,9 @@ describe("buildLanguageDirective", () => {
 
 describe("buildLanguageReminder", () => {
   it("is a concise reminder, not a full directive", () => {
-    useWikiStore.getState().setOutputLanguage("Chinese")
+    useWikiStore.getState().setOutputLanguage("French")
     const reminder = buildLanguageReminder()
-    expect(reminder).toMatch(/All output must be in Chinese/)
+    expect(reminder).toMatch(/All output must be in French/)
     // Reminder should be ONE line, not a multi-line block
     expect(reminder.split("\n").length).toBe(1)
   })
@@ -87,5 +87,24 @@ describe("buildLanguageReminder", () => {
   it("uses detected language in auto mode", () => {
     useWikiStore.getState().setOutputLanguage("auto")
     expect(buildLanguageReminder("これは日本語です")).toContain("Japanese")
+  })
+})
+
+describe("buildLanguageDirective — Japanese specifics", () => {
+  it("includes katakana / 文体 guidelines for Japanese output", () => {
+    useWikiStore.getState().setOutputLanguage("Japanese")
+    const dir = buildLanguageDirective("こんにちは")
+    expect(dir).toContain("Japanese")
+    // The Japanese addendum should mention katakana transliteration
+    expect(dir).toMatch(/カタカナ|katakana/i)
+    // ... and 文体 (writing style) guidance
+    expect(dir).toMatch(/文体|である調|です・?ます調/)
+  })
+
+  it("does NOT include the Japanese addendum when output is English", () => {
+    useWikiStore.getState().setOutputLanguage("English")
+    const dir = buildLanguageDirective("hello")
+    expect(dir).toContain("English")
+    expect(dir).not.toMatch(/カタカナ|である調/)
   })
 })

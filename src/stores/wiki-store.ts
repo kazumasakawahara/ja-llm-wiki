@@ -54,8 +54,6 @@ interface EmbeddingConfig {
 type OutputLanguage =
   | "auto"
   | "English"
-  | "Chinese"
-  | "Traditional Chinese"
   | "Japanese"
   | "Korean"
   | "Vietnamese"
@@ -73,6 +71,13 @@ type OutputLanguage =
   | "Swedish"
   | "Indonesian"
   | "Thai"
+
+/**
+ * Japanese tokenizer mode for search queries.
+ * "auto" = Intl.Segmenter (fast, lightweight, always available).
+ * "lindera" = MeCab-compatible Rust tokenizer (high accuracy, +50MB binary).
+ */
+export type TokenizerMode = "auto" | "lindera"
 
 /**
  * Per-preset saved fields. Each entry survives turning the preset off
@@ -104,6 +109,7 @@ interface WikiState {
   searchApiConfig: SearchApiConfig
   embeddingConfig: EmbeddingConfig
   outputLanguage: OutputLanguage
+  tokenizerMode: TokenizerMode
   dataVersion: number
 
   setProject: (project: WikiProject | null) => void
@@ -118,6 +124,7 @@ interface WikiState {
   setSearchApiConfig: (config: SearchApiConfig) => void
   setEmbeddingConfig: (config: EmbeddingConfig) => void
   setOutputLanguage: (lang: OutputLanguage) => void
+  setTokenizerMode: (mode: TokenizerMode) => void
   bumpDataVersion: () => void
 }
 
@@ -160,6 +167,7 @@ export const useWikiStore = create<WikiState>((set) => ({
   },
 
   outputLanguage: "auto",
+  tokenizerMode: "auto",
 
   setLlmConfig: (llmConfig) => set({ llmConfig }),
   setProviderConfigs: (providerConfigs) => set({ providerConfigs }),
@@ -167,6 +175,7 @@ export const useWikiStore = create<WikiState>((set) => ({
   setSearchApiConfig: (searchApiConfig) => set({ searchApiConfig }),
   setEmbeddingConfig: (embeddingConfig) => set({ embeddingConfig }),
   setOutputLanguage: (outputLanguage) => set({ outputLanguage }),
+  setTokenizerMode: (tokenizerMode) => set({ tokenizerMode }),
   bumpDataVersion: () => set((state) => ({ dataVersion: state.dataVersion + 1 })),
 }))
 

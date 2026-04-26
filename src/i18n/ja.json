@@ -1,0 +1,249 @@
+{
+  "app": {
+    "title": "LLM Wiki",
+    "subtitle": "LLM とともに個人ナレッジベースを構築・維持する"
+  },
+  "nav": {
+    "wiki": "Wiki",
+    "sources": "ソース",
+    "search": "検索",
+    "graph": "グラフ",
+    "lint": "Lint",
+    "review": "レビュー",
+    "settings": "設定",
+    "switchProject": "プロジェクト切替",
+    "updateAvailable": "更新あり",
+    "updateAvailableSuffix": " · 更新",
+    "deepResearch": "Deep Research"
+  },
+  "welcome": {
+    "newProject": "新規プロジェクト",
+    "openProject": "プロジェクトを開く",
+    "recentProjects": "最近のプロジェクト"
+  },
+  "project": {
+    "createTitle": "新規 Wiki プロジェクトの作成",
+    "name": "プロジェクト名",
+    "namePlaceholder": "my-research-wiki",
+    "parentDir": "親ディレクトリ",
+    "selectParentDir": "親ディレクトリを選択",
+    "template": "テンプレート",
+    "cancel": "キャンセル",
+    "create": "作成",
+    "creating": "作成中...",
+    "errorRequired": "プロジェクト名と親ディレクトリは必須です"
+  },
+  "sources": {
+    "title": "ソース",
+    "import": "インポート",
+    "importing": "インポート中...",
+    "noSources": "ソースがありません",
+    "importHint": "ドキュメントをインポートして wiki の構築を開始",
+    "importFiles": "ファイルをインポート",
+    "importFilesDialog": "ソースファイルをインポート",
+    "importFolderDialog": "ソースフォルダをインポート",
+    "refresh": "更新",
+    "ingest": "取り込み",
+    "delete": "ソースと関連 wiki ページを削除",
+    "deleteConfirm": "「{{name}}」と関連 wiki ページを削除しますか？\n\n実行内容:\n- ソースファイルを削除\n- このソースから生成された wiki ページを削除\n- index.md を更新",
+    "sourceCount": "{{count}} 件のソース",
+    "sourceCount_plural": "{{count}} 件のソース"
+  },
+  "chat": {
+    "placeholder": "wiki に質問してください...",
+    "placeholderHelp": "メッセージを入力... (Enter で送信、Shift+Enter で改行)",
+    "ingestPlaceholder": "ソースについて議論したり追加質問をしたりできます...",
+    "saveToWiki": "wiki に保存",
+    "saving": "保存中...",
+    "saved": "保存しました",
+    "writeToWiki": "wiki に書き込み",
+    "emptyHint": "質問するか、ソースの取り込みを開始してください。",
+    "sources": "ソース",
+    "stopGeneration": "生成を停止",
+    "sendMessage": "メッセージを送信",
+    "regenerate": "この応答を再生成",
+    "copyToClipboard": "クリップボードにコピー",
+    "regenerateLabel": "再生成",
+    "copyLabel": "コピー",
+    "copiedLabel": "コピーしました"
+  },
+  "search": {
+    "title": "検索",
+    "placeholder": "wiki ページを検索...",
+    "noResults": "該当する結果が見つかりません",
+    "startSearching": "wiki ページを検索するキーワードを入力",
+    "startHint": "Enter キーで検索"
+  },
+  "lint": {
+    "title": "Lint",
+    "runLint": "Lint を実行",
+    "running": "実行中...",
+    "semantic": "セマンティック (LLM)",
+    "allClear": "問題は見つかりませんでした",
+    "orphan": "孤立ページ",
+    "brokenLink": "リンク切れ",
+    "noOutlinks": "発リンクなし",
+    "contradiction": "矛盾",
+    "stale": "情報が古い可能性",
+    "missingPage": "ページ不足",
+    "suggestion": "提案",
+    "startHint": "Lint を実行して wiki の健全性を確認"
+  },
+  "review": {
+    "title": "レビュー",
+    "clearResolved": "解決済みをクリア",
+    "allClear": "レビュー対象はありません"
+  },
+  "settings": {
+    "title": "設定",
+    "llmProvider": "LLM プロバイダ",
+    "provider": "プロバイダ",
+    "apiKey": "API キー",
+    "apiKeyPlaceholder": "{{provider}} の API キーを入力",
+    "model": "モデル",
+    "customModel": "またはカスタムモデル名を入力",
+    "ollamaUrl": "Ollama URL",
+    "customEndpoint": "API エンドポイント (OpenAI 互換)",
+    "customEndpointHint": "OpenAI 互換の任意エンドポイント (LiteLLM, vLLM, LocalAI, Azure OpenAI など)",
+    "customApiKey": "API キーを入力 (必要な場合)",
+    "modelPlaceholder": "モデル名を入力",
+    "save": "保存",
+    "saved": "保存済み",
+    "savedTick": "保存済み ✓",
+    "changeHint": "保存後に変更が反映されます。",
+    "language": "言語",
+    "languageHint": "UI の表示言語 (wiki 本体の言語はソースに依存)",
+    "categories": {
+      "llm": "LLM モデル",
+      "embedding": "埋め込み",
+      "webSearch": "Web 検索",
+      "output": "出力",
+      "interface": "インターフェース",
+      "about": "情報"
+    },
+    "sections": {
+      "llm": {
+        "title": "LLM モデル",
+        "description": "プロバイダごとに 1 行の設定です。1 つを ON にすると他は自動で OFF になります。変更は即時保存され、各プロバイダの API キーは独立して保持されるため切り替えてもデータは失われません。",
+        "expand": "設定を展開",
+        "collapse": "折りたたむ",
+        "toggleOff": "クリックで無効化",
+        "toggleOn": "クリックで有効化 (他のプロバイダは無効になります)",
+        "wireOpenAi": "OpenAI 互換",
+        "wireAnthropic": "Anthropic 互換",
+        "apiKeyPlaceholderCustom": "ローカルモデルの場合は空欄でも可",
+        "apiKeyPlaceholder": "API キーを入力",
+        "savedBadge": "保存済み",
+        "configuredBadge": "設定済み",
+        "activeBadge": "● アクティブ",
+        "customModelTooltip": "カスタムモデル ID を入力",
+        "apiMode": "API モード",
+        "contextWindow": "コンテキストウィンドウ",
+        "endpoint": "エンドポイント",
+        "endpointWillUse": "次のエンドポイントを使用:",
+        "endpointAutoApply": "(入力欄からフォーカスが外れたとき自動適用)",
+        "empty": "(空)",
+        "cliStatus": "CLI ステータス",
+        "cliChecking": "確認中…",
+        "cliRecheck": "再確認",
+        "cliDetecting": "ローカルの claude バイナリを検出中…",
+        "cliDetectedReady": "検出済み{{versionSuffix}}。ローカルのサブスクリプションを使用可能です — API キーは不要。",
+        "cliUnavailable": "claude CLI が見つかりません。",
+        "cliInstallHint": "{{cmd}} でインストールしてから再確認してください。"
+      },
+      "embedding": {
+        "title": "ベクター埋め込み",
+        "description": "wiki に対するセマンティック検索を有効化します。OpenAI 互換の /v1/embeddings エンドポイントで動作します。ローカルモデル (LM Studio, Ollama embedding 等) では API キーは不要です。",
+        "enableLabel": "ベクター検索を有効化",
+        "enableHint": "OFF の場合はトークン一致のみを使用します。",
+        "endpoint": "エンドポイント",
+        "apiKey": "API キー (任意)",
+        "apiKeyPlaceholder": "ローカルモデルの場合は空欄",
+        "model": "モデル",
+        "chunking": "チャンク設定",
+        "maxChunkChars": "1 チャンクあたりの最大文字数",
+        "maxChunkCharsHint": "各チャンクの目標サイズ。エンドポイントのコンテキストが小さい場合 (llama.cpp n_ctx=512, mxbai-embed-large 等) は 500 程度まで下げてください。",
+        "overlapChunkChars": "オーバーラップ (文字)",
+        "overlapChunkCharsHint": "境界で意味が断たれないよう、隣接チャンク間で重なる文字数。",
+        "statsHeading": "インデックス状況",
+        "chunkCount": "{{count}} チャンクをインデックス済み",
+        "lastErrorHeading": "直近の埋め込みエラー",
+        "reindexAll": "全ページを再インデックス",
+        "reindexing": "{{done}}/{{total}} を処理中…",
+        "reindexDone": "{{count}} ページをインデックスしました。",
+        "legacyPromptTitle": "旧形式 (ページ単位) インデックスを検出",
+        "legacyPromptBody": "このプロジェクトには旧バージョンのページ単位インデックスが {{count}} 件あります。新しいチャンク単位のインデックスは検索精度が高いですが、再埋め込みが必要です。「全ページを再インデックス」でアップグレードできます。",
+        "dropLegacy": "旧インデックスを削除",
+        "dropLegacyDone": "旧インデックスを削除しました。"
+      },
+      "webSearch": {
+        "title": "Web 検索",
+        "description": "Deep Research が外部から最新情報を取得する際に使用します。",
+        "tavilyApiKeyPlaceholder": "Tavily の API キーを入力 (tavily.com)"
+      },
+      "output": {
+        "title": "出力設定",
+        "description": "AI の生成内容に関する設定 (言語・履歴長など)。",
+        "aiLanguage": "AI 出力言語",
+        "aiLanguageHint": "AI が生成するコンテンツ (チャット返信・wiki ページ・research 結果・lint レポート) の言語を強制します。「Auto」を選ぶと、ユーザー入力やソース文書の言語に追従します。",
+        "historyLength": "会話履歴の長さ",
+        "historyHint": "1 リクエストで AI に渡す過去メッセージ数。多いほど文脈は豊富ですが、トークン消費も増えます。",
+        "historyCurrent": "現在 {{count}} 件 (約 {{turns}} ターン)"
+      },
+      "interface": {
+        "title": "インターフェース",
+        "description": "UI の言語と外観。変更は即座に反映され、保存されます。",
+        "uiLanguage": "UI 言語",
+        "uiLanguageHint": "ボタンやラベルなどの UI 表示にのみ影響します。AI の出力言語は「出力設定」で別途指定してください。"
+      },
+      "about": {
+        "title": "情報",
+        "description": "ビルド情報と実行時ステータス。",
+        "version": "バージョン",
+        "clipServer": "Clip サーバー",
+        "updateCheck": "更新チェック",
+        "lastChecked": "最終確認",
+        "lastCheckedNever": "未確認",
+        "unreachable": "GitHub に接続できませんでした",
+        "checkNow": "今すぐ確認",
+        "checking": "確認中…",
+        "upToDate": "最新版です (v{{version}})。",
+        "updateAvailable": "更新があります: v{{version}}",
+        "openDownload": "ダウンロードページを開く",
+        "later": "後で",
+        "autoCheck": "起動時に自動で更新を確認 (最大 6 時間に 1 回)",
+        "tokenizer": "日本語トークナイザ",
+        "tokenizerHint": "日本語検索のクエリ分割エンジン。Auto は OS 内蔵の Intl.Segmenter (高速・軽量) を使用します。Lindera は MeCab 互換の高精度モードで、辞書同梱のためバイナリが約 50MB 増えます。",
+        "tokenizerAuto": "Auto (Intl.Segmenter)",
+        "tokenizerLindera": "Lindera (MeCab 互換 / 高精度)",
+        "appDescription": "LLM 駆動の個人ナレッジベース。ソース:"
+      }
+    }
+  },
+  "preview": {
+    "selectFile": "プレビューするファイルを選択",
+    "notAvailable": "このファイル形式はプレビューに対応していません"
+  },
+  "activity": {
+    "processing": "処理中: {{title}}",
+    "done": "完了: {{title}}",
+    "clearCompleted": "完了済みをクリア",
+    "cancelAll": "キュー内およびすべての処理中タスクを中止",
+    "retry": "再試行",
+    "cancel": "中止",
+    "ingestQueue": "取り込みキュー"
+  },
+  "research": {
+    "topicPlaceholder": "リサーチトピックを入力...",
+    "noTasksYet": "リサーチタスクはまだありません"
+  },
+  "fileTree": {
+    "noProject": "プロジェクトが開かれていません"
+  },
+  "time": {
+    "justNow": "たった今",
+    "minutesAgo": "{{count}} 分前",
+    "hoursAgo": "{{count}} 時間前",
+    "daysAgo": "{{count}} 日前"
+  }
+}

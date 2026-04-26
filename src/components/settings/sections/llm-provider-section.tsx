@@ -198,7 +198,7 @@ function PresetRow({
         <div className="space-y-4 border-t bg-background/50 px-4 py-3">
           {preset.provider === "custom" && (
             <div className="space-y-2">
-              <Label>API Mode</Label>
+              <Label>{t("settings.sections.llm.apiMode")}</Label>
               <div className="flex flex-wrap gap-2">
                 {(
                   [
@@ -249,7 +249,7 @@ function PresetRow({
 
           {needsApiKey && (
             <div className="space-y-2">
-              <Label>API Key</Label>
+              <Label>{t("settings.apiKey")}</Label>
               <Input
                 type="password"
                 value={apiKey}
@@ -264,7 +264,7 @@ function PresetRow({
           )}
 
           <div className="space-y-2">
-            <Label>Model</Label>
+            <Label>{t("settings.model")}</Label>
             <ModelPicker
               value={model}
               suggestions={preset.suggestedModels ?? []}
@@ -274,7 +274,7 @@ function PresetRow({
           </div>
 
           <div className="space-y-2">
-            <Label>Context window</Label>
+            <Label>{t("settings.sections.llm.contextWindow")}</Label>
             <ContextSizeSelector
               value={context}
               onChange={(v) => onChange({ maxContextSize: v })}
@@ -300,6 +300,7 @@ interface EndpointFieldProps {
  * blur, if normalization would change the value, we apply it.
  */
 function EndpointField({ value, mode, placeholder, onChange }: EndpointFieldProps) {
+  const { t } = useTranslation()
   const preview = useMemo(() => normalizeEndpoint(value, mode), [value, mode])
 
   function handleBlur() {
@@ -312,7 +313,7 @@ function EndpointField({ value, mode, placeholder, onChange }: EndpointFieldProp
 
   return (
     <div className="space-y-1.5">
-      <Label>Endpoint</Label>
+      <Label>{t("settings.sections.llm.endpoint")}</Label>
       <Input
         value={value}
         onChange={(e) => onChange(e.target.value)}
@@ -335,8 +336,13 @@ function EndpointField({ value, mode, placeholder, onChange }: EndpointFieldProp
           <div className="min-w-0 flex-1 space-y-0.5">
             {preview.changed && (
               <div>
-                将使用 <code className="break-all rounded bg-background/60 px-1 py-0.5 font-mono">{preview.normalized || "(empty)"}</code>
-                <span className="ml-1 text-muted-foreground">(离开输入框时自动套用)</span>
+                {t("settings.sections.llm.endpointWillUse")}{" "}
+                <code className="break-all rounded bg-background/60 px-1 py-0.5 font-mono">
+                  {preview.normalized || t("settings.sections.llm.empty")}
+                </code>
+                <span className="ml-1 text-muted-foreground">
+                  {t("settings.sections.llm.endpointAutoApply")}
+                </span>
               </div>
             )}
             {preview.warning && <div>{preview.warning}</div>}
@@ -365,6 +371,7 @@ interface ModelPickerProps {
  * `suggestedModels` render the input alone.
  */
 function ModelPicker({ value, suggestions, placeholder, onChange }: ModelPickerProps) {
+  const { t } = useTranslation()
   const hasSuggestions = suggestions.length > 0
   const isCustom = hasSuggestions && value.length > 0 && !suggestions.includes(value)
 
@@ -398,7 +405,7 @@ function ModelPicker({ value, suggestions, placeholder, onChange }: ModelPickerP
                 ? "border-primary/60 bg-primary/10 text-primary"
                 : "border-dashed border-muted-foreground/40 text-muted-foreground hover:bg-accent hover:text-accent-foreground"
             }`}
-            title="Type a custom model id"
+            title={t("settings.sections.llm.customModelTooltip")}
           >
             {isCustom ? `Custom: ${value}` : "Custom…"}
           </button>
@@ -428,6 +435,7 @@ interface DetectResult {
  * already tailors the hint (macOS quarantine, missing binary, etc).
  */
 function ClaudeCliStatusPill() {
+  const { t } = useTranslation()
   const [state, setState] = useState<"loading" | "ok" | "err">("loading")
   const [result, setResult] = useState<DetectResult | null>(null)
 
@@ -455,14 +463,16 @@ function ClaudeCliStatusPill() {
   return (
     <div className="space-y-1.5">
       <div className="flex items-center gap-2">
-        <Label className="m-0">CLI status</Label>
+        <Label className="m-0">{t("settings.sections.llm.cliStatus")}</Label>
         <button
           type="button"
           onClick={() => void detect()}
           className="rounded border border-border px-2 py-0.5 text-xs text-muted-foreground hover:bg-accent hover:text-accent-foreground"
           disabled={state === "loading"}
         >
-          {state === "loading" ? "Checking…" : "Re-check"}
+          {state === "loading"
+            ? t("settings.sections.llm.cliChecking")
+            : t("settings.sections.llm.cliRecheck")}
         </button>
       </div>
       <div
@@ -478,12 +488,13 @@ function ClaudeCliStatusPill() {
         {state === "ok" && <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0" />}
         {state === "err" && <XCircle className="mt-0.5 h-3.5 w-3.5 shrink-0" />}
         <div className="min-w-0 flex-1 space-y-0.5">
-          {state === "loading" && <div>Detecting local claude binary…</div>}
+          {state === "loading" && <div>{t("settings.sections.llm.cliDetecting")}</div>}
           {state === "ok" && (
             <>
               <div>
-                Detected{result?.version ? ` ${result.version}` : ""}. Ready to use your local
-                subscription — no API key needed.
+                {t("settings.sections.llm.cliDetectedReady", {
+                  versionSuffix: result?.version ? ` ${result.version}` : "",
+                })}
               </div>
               {result?.path && (
                 <div className="truncate font-mono text-[10px] text-muted-foreground">
@@ -494,18 +505,33 @@ function ClaudeCliStatusPill() {
           )}
           {state === "err" && (
             <>
-              <div>{result?.error ?? "claude CLI not available."}</div>
-              <div className="text-muted-foreground">
-                Install from{" "}
-                <code className="rounded bg-background/60 px-1 py-0.5 font-mono text-[10px]">
-                  npm i -g @anthropic-ai/claude-code
-                </code>{" "}
-                then re-check.
-              </div>
+              <div>{result?.error ?? t("settings.sections.llm.cliUnavailable")}</div>
+              <ClaudeCliInstallHint />
             </>
           )}
         </div>
       </div>
+    </div>
+  )
+}
+
+/**
+ * Renders the install-hint sentence with `npm i -g @anthropic-ai/claude-code`
+ * wrapped in a <code> block. Uses a placeholder split so each language can
+ * order the command and surrounding text naturally (e.g. Japanese puts the
+ * command first, English puts it in the middle).
+ */
+function ClaudeCliInstallHint() {
+  const { t } = useTranslation()
+  const cmd = "npm i -g @anthropic-ai/claude-code"
+  const PLACEHOLDER = "__CMD__"
+  const sentence = t("settings.sections.llm.cliInstallHint", { cmd: PLACEHOLDER })
+  const [before, after] = sentence.split(PLACEHOLDER)
+  return (
+    <div className="text-muted-foreground">
+      {before}
+      <code className="rounded bg-background/60 px-1 py-0.5 font-mono text-[10px]">{cmd}</code>
+      {after}
     </div>
   )
 }

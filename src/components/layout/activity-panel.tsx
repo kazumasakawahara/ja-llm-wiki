@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react"
+import { useTranslation } from "react-i18next"
 import {
   ChevronUp, ChevronDown, Loader2, CheckCircle2, AlertCircle,
   FileText, Users, Lightbulb, BookOpen, GitMerge, BarChart3, HelpCircle, Layout,
@@ -30,6 +31,7 @@ function getFileTypeInfo(path: string): { icon: typeof FileText; type: string } 
 }
 
 export function ActivityPanel() {
+  const { t } = useTranslation()
   const items = useActivityStore((s) => s.items)
   const clearDone = useActivityStore((s) => s.clearDone)
   const project = useWikiStore((s) => s.project)
@@ -137,7 +139,7 @@ export function ActivityPanel() {
           {hasQueue && (queueSummary.processing > 0 || queueSummary.pending > 0) && (
             <div className="px-3 py-1.5 border-b border-border/50">
               <div className="flex items-center justify-between text-[10px] text-muted-foreground mb-1 gap-2">
-                <span>Ingest Queue</span>
+                <span>{t("activity.ingestQueue")}</span>
                 <span className="flex-1 text-right">
                   {queueSummary.total - queueSummary.pending - queueSummary.processing}/{queueSummary.total} complete
                 </span>
@@ -145,7 +147,7 @@ export function ActivityPanel() {
                   <button
                     onClick={handleCancelAll}
                     className="rounded px-1.5 py-0.5 text-[10px] text-destructive hover:bg-destructive/10"
-                    title="Cancel all queued and in-progress tasks"
+                    title={t("activity.cancelAll")}
                   >
                     Cancel all
                   </button>
@@ -200,6 +202,7 @@ export function ActivityPanel() {
 }
 
 function QueueRow({ task, onRetry, onCancel }: { task: IngestTask; onRetry: (id: string) => void; onCancel: (id: string) => void }) {
+  const { t } = useTranslation()
   const fileName = getFileName(task.sourcePath)
 
   return (
@@ -224,7 +227,7 @@ function QueueRow({ task, onRetry, onCancel }: { task: IngestTask; onRetry: (id:
             <button
               onClick={() => onRetry(task.id)}
               className="p-0.5 rounded hover:bg-accent text-muted-foreground hover:text-foreground"
-              title="Retry"
+              title={t("activity.retry")}
             >
               <RotateCcw className="h-3 w-3" />
             </button>
@@ -233,7 +236,7 @@ function QueueRow({ task, onRetry, onCancel }: { task: IngestTask; onRetry: (id:
             <button
               onClick={() => onCancel(task.id)}
               className="p-0.5 rounded hover:bg-destructive/20 text-muted-foreground hover:text-destructive"
-              title="Cancel"
+              title={t("activity.cancel")}
             >
               <X className="h-3 w-3" />
             </button>
@@ -245,6 +248,7 @@ function QueueRow({ task, onRetry, onCancel }: { task: IngestTask; onRetry: (id:
 }
 
 function ActivityRow({ item, onCancel }: { item: ActivityItem; onCancel?: () => void }) {
+  const { t } = useTranslation()
   const setSelectedFile = useWikiStore((s) => s.setSelectedFile)
   const project = useWikiStore((s) => s.project)
 
@@ -273,7 +277,7 @@ function ActivityRow({ item, onCancel }: { item: ActivityItem; onCancel?: () => 
           <button
             onClick={onCancel}
             className="shrink-0 p-0.5 rounded hover:bg-destructive/20 text-muted-foreground hover:text-destructive"
-            title="Cancel"
+            title={t("activity.cancel")}
           >
             <X className="h-3 w-3" />
           </button>

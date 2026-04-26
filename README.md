@@ -1,100 +1,102 @@
 # LLM Wiki
 
 <p align="center">
-  <img src="logo.jpg" width="128" height="128" style="border-radius: 22%;" alt="LLM Wiki Logo">
+  <img src="logo.jpg" width="128" height="128" style="border-radius: 22%;" alt="LLM Wiki ロゴ">
 </p>
 
 <p align="center">
-  <strong>A personal knowledge base that builds itself.</strong><br>
-  LLM reads your documents, builds a structured wiki, and keeps it current.
+  <strong>自分自身で育つ、パーソナルナレッジベース。</strong><br>
+  LLM がドキュメントを読み込み、構造化された Wiki を構築し、常に最新の状態に保つ。
 </p>
 
 <p align="center">
-  <a href="#what-is-this">What is this?</a> •
-  <a href="#what-we-changed--added">Features</a> •
-  <a href="#tech-stack">Tech Stack</a> •
-  <a href="#installation">Installation</a> •
-  <a href="#credits">Credits</a> •
-  <a href="#license">License</a>
+  <a href="#what-is-this">概要</a> •
+  <a href="#what-we-changed--added">主な機能</a> •
+  <a href="#tech-stack">技術スタック</a> •
+  <a href="#installation">インストール</a> •
+  <a href="#credits">クレジット</a> •
+  <a href="#license">ライセンス</a>
 </p>
 
 <p align="center">
-  English | <a href="README_CN.md">中文</a>
+  日本語 | <a href="README_EN.md">English</a>
 </p>
 
 ---
 
 <p align="center">
-  <img src="assets/overview.jpg" width="100%" alt="Overview">
+  <img src="assets/overview.jpg" width="100%" alt="概要">
 </p>
 
-## Features
+## 主な機能
 
-- **Two-Step Chain-of-Thought Ingest** — LLM analyzes first, then generates wiki pages with source traceability and incremental cache
-- **4-Signal Knowledge Graph** — relevance model with direct links, source overlap, Adamic-Adar, and type affinity
-- **Louvain Community Detection** — automatic knowledge cluster discovery with cohesion scoring
-- **Graph Insights** — surprising connections and knowledge gaps with one-click Deep Research
-- **Vector Semantic Search** — optional embedding-based retrieval via LanceDB, supports any OpenAI-compatible endpoint
-- **Persistent Ingest Queue** — serial processing with crash recovery, cancel, retry, and progress visualization
-- **Folder Import** — recursive folder import preserving directory structure, folder context as LLM classification hint
-- **Deep Research** — LLM-optimized search topics, multi-query web search, auto-ingest results into wiki
-- **Async Review System** — LLM flags items for human judgment, predefined actions, pre-generated search queries
-- **Chrome Web Clipper** — one-click web page capture with auto-ingest into knowledge base
+- **2 段階 Chain-of-Thought インジェスト** — LLM がまず分析を行い、その後ソースの追跡可能性とインクリメンタルキャッシュを備えた Wiki ページを生成する
+- **4 シグナル知識グラフ** — 直接リンク、ソース重複、Adamic-Adar、タイプ親和性を組み合わせた関連性モデル
+- **Louvain コミュニティ検出** — 凝集度スコア付きで知識クラスタを自動的に発見
+- **グラフインサイト** — 意外なつながりや知識のギャップをワンクリックの Deep Research で探索可能
+- **ベクトル意味検索** — LanceDB によるオプションの埋め込みベース検索。任意の OpenAI 互換エンドポイントに対応
+- **永続的なインジェストキュー** — クラッシュリカバリ、キャンセル、リトライ、進捗の可視化を備えた直列処理
+- **フォルダインポート** — ディレクトリ構造を保ったまま再帰的にインポートし、フォルダのコンテキストを LLM の分類ヒントとして利用
+- **Deep Research** — LLM 最適化された調査トピック、複数クエリでの Web 検索、結果の自動 Wiki 取り込み
+- **非同期レビューシステム** — LLM が人間の判断を要する項目をフラグ付け。事前定義されたアクションと事前生成された検索クエリ
+- **Chrome Web クリッパー** — ワンクリックで Web ページをキャプチャし、自動的に知識ベースへ取り込み
 
-## What is this?
+## 概要
 
-LLM Wiki is a cross-platform desktop application that turns your documents into an organized, interlinked knowledge base — automatically. Instead of traditional RAG (retrieve-and-answer from scratch every time), the LLM **incrementally builds and maintains a persistent wiki** from your sources. Knowledge is compiled once and kept current, not re-derived on every query.
+LLM Wiki はクロスプラットフォームのデスクトップアプリケーションであり、手元のドキュメントを整理された相互リンク付きの知識ベースへと自動的に変換する。従来の RAG（毎回ゼロから検索して回答する方式）とは異なり、LLM が **永続的な Wiki をインクリメンタルに構築・維持する**。知識は一度コンパイルされた後は最新の状態に保たれ、クエリごとに再導出されることはない。
 
-This project is based on [Karpathy's LLM Wiki pattern](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) — a methodology for building personal knowledge bases using LLMs. We implemented the core ideas as a full desktop application with significant enhancements.
+このプロジェクトは [Karpathy の LLM Wiki パターン](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) — LLM を用いてパーソナルナレッジベースを構築する方法論 — を基礎としている。そのコアアイデアを完全なデスクトップアプリケーションとして実装し、大幅な拡張を加えたものである。
 
 <p align="center">
-  <img src="assets/llm_wiki_arch.jpg" width="100%" alt="LLM Wiki Architecture">
+  <img src="assets/llm_wiki_arch.jpg" width="100%" alt="LLM Wiki アーキテクチャ">
 </p>
 
-## Credits
+## クレジット
 
-The foundational methodology comes from **Andrej Karpathy**'s [llm-wiki.md](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f), which describes the pattern of using LLMs to incrementally build and maintain a personal wiki. The original document is an abstract design pattern; this project is a concrete implementation with substantial extensions.
+基礎となる方法論は **Andrej Karpathy** 氏による [llm-wiki.md](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) に由来する。これは LLM を用いてパーソナル Wiki をインクリメンタルに構築・維持するパターンを記述した文書である。原文は抽象的な設計パターンを示したものであり、本プロジェクトはそれを具体的に実装し、大幅に拡張したものである。
 
-## What We Kept from the Original
+## オリジナルから引き継いだもの
 
-The core architecture follows Karpathy's design faithfully:
+コアアーキテクチャは Karpathy 氏の設計に忠実に従っている。
 
-- **Three-layer architecture**: Raw Sources (immutable) → Wiki (LLM-generated) → Schema (rules & config)
-- **Three core operations**: Ingest, Query, Lint
-- **index.md** as the content catalog and LLM navigation entry point
-- **log.md** as the chronological operation record with parseable format
-- **[[wikilink]]** syntax for cross-references
-- **YAML frontmatter** on every wiki page
-- **Obsidian compatibility** — the wiki directory works as an Obsidian vault
-- **Human curates, LLM maintains** — the fundamental role division
+- **3 層アーキテクチャ**: Raw Sources（不変）→ Wiki（LLM 生成）→ Schema（ルール・設定）
+- **3 つのコア操作**: Ingest、Query、Lint
+- **index.md** をコンテンツカタログ兼 LLM のナビゲーションエントリポイントとする
+- **log.md** をパース可能な形式の時系列操作記録とする
+- **[[wikilink]]** 構文による相互参照
+- すべての Wiki ページに付与される **YAML フロントマター**
+- **Obsidian 互換** — Wiki ディレクトリは Obsidian Vault としてそのまま機能する
+- **人間がキュレーションし、LLM が維持する** — 役割分担の根本原則
 
 <p align="center">
-  <img src="assets/5-obsidian_compatibility.jpg" width="100%" alt="Obsidian Compatibility">
+  <img src="assets/5-obsidian_compatibility.jpg" width="100%" alt="Obsidian 互換性">
 </p>
 
-## What We Changed & Added
+## 変更点と追加点
 
-### 1. From CLI to Desktop Application
+### 1. CLI からデスクトップアプリへ
 
-The original is an abstract pattern document designed to be copy-pasted to an LLM agent. We built it into a **full cross-platform desktop application** with:
-- **Three-column layout**: Knowledge Tree / File Tree (left) + Chat (center) + Preview (right)
-- **Icon sidebar** for switching between Wiki, Sources, Search, Graph, Lint, Review, Deep Research, Settings
-- **Custom resizable panels** — drag-to-resize left and right panels with min/max constraints
-- **Activity panel** — real-time processing status showing file-by-file ingest progress
-- **All state persisted** — conversations, settings, review items, project config survive restarts
-- **Scenario templates** — Research, Reading, Personal Growth, Business, General — each pre-configures purpose.md and schema.md
+オリジナルは LLM エージェントにコピー＆ペーストして使うことを想定した抽象的なパターン文書である。これを **完全なクロスプラットフォームデスクトップアプリケーション** として実装し、以下を備えている。
 
-### 2. Purpose.md — The Wiki's Soul
+- **3 カラムレイアウト**: ナレッジツリー / ファイルツリー（左）+ チャット（中央）+ プレビュー（右）
+- **アイコンサイドバー** で Wiki、Sources、Search、Graph、Lint、Review、Deep Research、Settings を切り替え
+- **カスタムリサイズ可能なパネル** — 最小／最大幅の制約付きで左右パネルをドラッグでリサイズ
+- **アクティビティパネル** — ファイル単位のインジェスト進捗をリアルタイム表示
+- **すべての状態を永続化** — 会話履歴、設定、レビュー項目、プロジェクト設定が再起動後も保持される
+- **シナリオテンプレート** — Research、Reading、Personal Growth、Business、General。各テンプレートは purpose.md と schema.md を事前設定する
 
-The original has Schema (how the wiki works) but no formal place for **why** the wiki exists. We added `purpose.md`:
-- Defines goals, key questions, research scope, evolving thesis
-- LLM reads it during every ingest and query for context
-- LLM can suggest updates based on usage patterns
-- Different from schema — schema is structural rules, purpose is directional intent
+### 2. Purpose.md — Wiki の魂
 
-### 3. Two-Step Chain-of-Thought Ingest
+オリジナルには Schema（Wiki がどう動くか）はあるが、**なぜ** Wiki が存在するのかを定義する正式な場所が存在しなかった。本プロジェクトでは `purpose.md` を追加した。
 
-The original describes a single-step ingest where the LLM reads and writes simultaneously. We split it into **two sequential LLM calls** for significantly better quality:
+- 目標、主要な問い、研究範囲、進化していくテーゼを定義する
+- LLM はインジェストおよびクエリのたびに purpose.md を読み、コンテキストとして利用する
+- 利用パターンに基づいて LLM が更新を提案できる
+- Schema との違い — Schema は構造的なルール、purpose は方向性としての意図
+
+### 3. 2 段階 Chain-of-Thought インジェスト
+
+オリジナルは LLM が読みながら同時に書く 1 段階のインジェストを記述している。本プロジェクトではこれを **2 つの逐次的な LLM 呼び出し** に分割し、品質を大幅に改善した。
 
 ```
 Step 1 (Analysis): LLM reads source → structured analysis
@@ -111,86 +113,87 @@ Step 2 (Generation): LLM takes analysis → generates wiki files
   - Search queries for Deep Research
 ```
 
-Additional ingest enhancements beyond the original:
-- **SHA256 incremental cache** — source file content is hashed before ingest; unchanged files are skipped automatically, saving LLM tokens and time
-- **Persistent ingest queue** — serial processing prevents concurrent LLM calls; queue persisted to disk, survives app restart; failed tasks auto-retry up to 3 times
-- **Folder import** — recursive folder import preserving directory structure; folder path passed to LLM as classification context (e.g., "papers > energy" helps categorize content)
-- **Queue visualization** — Activity Panel shows progress bar, pending/processing/failed tasks with cancel and retry buttons
-- **Auto-embedding** — when vector search is enabled, new pages are automatically embedded after ingest
-- **Source traceability** — every generated wiki page includes a `sources: []` field in YAML frontmatter, linking back to the raw source files that contributed to it
-- **overview.md auto-update** — global summary page regenerated on every ingest to reflect the latest state of the wiki
-- **Guaranteed source summary** — fallback ensures a source summary page is always created, even if the LLM omits it
-- **Language-aware generation** — LLM responds in the user's configured language (English or Chinese)
+オリジナルにはないインジェスト関連の追加機能は以下のとおりである。
 
-### 4. Knowledge Graph with Relevance Model
+- **SHA256 インクリメンタルキャッシュ** — インジェスト前にソースファイルの内容をハッシュ化し、未変更のファイルは自動的にスキップして LLM のトークンと時間を節約する
+- **永続的なインジェストキュー** — 同時 LLM 呼び出しを防ぐ直列処理。キューはディスクに永続化され、アプリ再起動後も維持される。失敗したタスクは最大 3 回まで自動でリトライされる
+- **フォルダインポート** — ディレクトリ構造を保ったまま再帰的にインポート。フォルダパスは LLM に分類コンテキストとして渡される（例: 「papers > energy」がコンテンツ分類の手助けとなる）
+- **キューの可視化** — アクティビティパネルにプログレスバーと、キャンセル／リトライボタン付きで pending／processing／failed のタスクを表示
+- **自動埋め込み** — ベクトル検索が有効な場合、新規ページはインジェスト後に自動で埋め込まれる
+- **ソースの追跡可能性** — 生成されたすべての Wiki ページの YAML フロントマターに `sources: []` フィールドが含まれ、寄与した raw ソースファイルへ遡及できる
+- **overview.md の自動更新** — 最新の Wiki 状態を反映するため、インジェストのたびにグローバルなサマリーページが再生成される
+- **ソースサマリーの保証** — LLM が省略した場合でも、ソースサマリーページが必ず作成されるフォールバックを備える
+- **言語認識生成** — ユーザーが設定した言語（英語または日本語）で LLM が応答する
+
+### 4. 関連性モデルを備えた知識グラフ
 
 <p align="center">
-  <img src="assets/3-knowledge_graph.jpg" width="100%" alt="Knowledge Graph">
+  <img src="assets/3-knowledge_graph.jpg" width="100%" alt="知識グラフ">
 </p>
 
-The original mentions `[[wikilinks]]` for cross-references but has no graph analysis. We built a **full knowledge graph visualization and relevance engine**:
+オリジナルは相互参照のための `[[wikilinks]]` に言及するのみで、グラフ解析は持たない。本プロジェクトでは **完全な知識グラフ可視化と関連性エンジン** を構築した。
 
-**4-Signal Relevance Model:**
-| Signal | Weight | Description |
+**4 シグナル関連性モデル:**
+| シグナル | 重み | 説明 |
 |--------|--------|-------------|
-| Direct link | ×3.0 | Pages linked via `[[wikilinks]]` |
-| Source overlap | ×4.0 | Pages sharing the same raw source (via frontmatter `sources[]`) |
-| Adamic-Adar | ×1.5 | Pages sharing common neighbors (weighted by neighbor degree) |
-| Type affinity | ×1.0 | Bonus for same page type (entity↔entity, concept↔concept) |
+| Direct link | ×3.0 | `[[wikilinks]]` で直接リンクされたページ |
+| Source overlap | ×4.0 | 同一の raw ソースを共有するページ（フロントマター `sources[]` 経由） |
+| Adamic-Adar | ×1.5 | 共通の隣接ノードを共有するページ（隣接ノードの次数で重み付け） |
+| Type affinity | ×1.0 | 同一ページタイプ（entity↔entity、concept↔concept）に対するボーナス |
 
-**Graph Visualization (sigma.js + graphology + ForceAtlas2):**
-- Node colors by page type or community, sizes scaled by link count (√ scaling)
-- Edge thickness and color by relevance weight (green=strong, gray=weak)
-- Hover interaction: neighbors stay visible, non-neighbors dim, edges highlight with relevance score label
-- Zoom controls (ZoomIn, ZoomOut, Fit-to-screen)
-- Position caching prevents layout jumps when data updates
-- Legend switches between type counts and community info based on coloring mode
+**グラフ可視化（sigma.js + graphology + ForceAtlas2）:**
+- ノード色はページタイプまたはコミュニティで決まり、サイズはリンク数（√ スケーリング）に応じて変化する
+- エッジの太さと色は関連性の重みを表す（緑=強い、灰色=弱い）
+- ホバー時のインタラクション: 隣接ノードは表示されたまま、非隣接ノードは暗くなり、エッジは関連度スコアラベル付きでハイライト表示される
+- ズームコントロール（ズームイン、ズームアウト、画面フィット）
+- 位置キャッシュにより、データ更新時のレイアウトの飛びを防止
+- カラーリングモードに応じて、凡例がタイプ件数とコミュニティ情報を切り替え表示
 
-### 5. Louvain Community Detection
+### 5. Louvain コミュニティ検出
 
-Not in the original. Automatic discovery of knowledge clusters using the **Louvain algorithm** (graphology-communities-louvain):
+オリジナルにはない機能。**Louvain アルゴリズム**（graphology-communities-louvain）を用いて知識クラスタを自動発見する。
 
-- **Auto-clustering** — discovers which pages naturally group together based on link topology, independent of predefined page types
-- **Type / Community toggle** — switch between coloring nodes by page type (entity, concept, source...) or by discovered knowledge cluster
-- **Cohesion scoring** — each community scored by intra-edge density (actual edges / possible edges); low-cohesion clusters (< 0.15) flagged with warning
-- **12-color palette** — distinct visual separation between clusters
-- **Community legend** — shows top node label, member count, and cohesion per cluster
-
-<p align="center">
-  <img src="assets/kg_community.jpg" width="100%" alt="Louvain Community Detection">
-</p>
-
-### 6. Graph Insights — Surprising Connections & Knowledge Gaps
-
-Not in the original. The system **automatically analyzes graph structure** to surface actionable insights:
-
-**Surprising Connections:**
-- Detects unexpected relationships: cross-community edges, cross-type links, peripheral↔hub couplings
-- Composite surprise score ranks the most noteworthy connections
-- Dismissable — mark connections as reviewed so they don't reappear
-
-**Knowledge Gaps:**
-- **Isolated pages** (degree ≤ 1) — pages with few or no connections to the rest of the wiki
-- **Sparse communities** (cohesion < 0.15, ≥ 3 pages) — knowledge areas with weak internal cross-references
-- **Bridge nodes** (connecting 3+ clusters) — critical junction pages that hold multiple knowledge areas together
-
-**Interactive:**
-- Click any insight card to **highlight** corresponding nodes and edges in the graph; click again to deselect
-- Knowledge gaps and bridge nodes have a **Deep Research button** — triggers LLM-optimized research with domain-aware topics (reads overview.md + purpose.md for context)
-- Research topic shown in **editable confirmation dialog** before starting — user can refine topic and search queries
+- **自動クラスタリング** — 事前定義されたページタイプとは独立に、リンクトポロジーから自然にグループ化されるページを発見
+- **タイプ／コミュニティ切り替え** — ノードの色をページタイプ（entity、concept、source など）または発見されたナレッジクラスタで切り替え可能
+- **凝集度スコアリング** — 各コミュニティを内部エッジの密度（実エッジ数 / 可能エッジ数）でスコアリング。低凝集度のクラスタ（< 0.15）は警告フラグ付き
+- **12 色パレット** — クラスタ間の視覚的な区別を明確化
+- **コミュニティ凡例** — クラスタごとに代表ノードのラベル、メンバー数、凝集度を表示
 
 <p align="center">
-  <img src="assets/kg_insights.jpg" width="100%" alt="Graph Insights">
+  <img src="assets/kg_community.jpg" width="100%" alt="Louvain コミュニティ検出">
 </p>
 
-### 7. Optimized Query Retrieval Pipeline
+### 6. グラフインサイト — 意外なつながりと知識のギャップ
 
-The original describes a simple query where the LLM reads relevant pages. We built a **multi-phase retrieval pipeline** with optional vector search and budget control:
+オリジナルにはない機能。本システムはグラフ構造を **自動的に解析** し、実用的なインサイトを抽出する。
+
+**意外なつながり:**
+- 想定外の関係を検出する: コミュニティをまたぐエッジ、タイプをまたぐリンク、周辺ノード↔ハブの結合
+- 複合的な「意外度スコア」によって、特に注目すべきつながりを順位付け
+- ディスマイス可能 — レビュー済みとマークしたつながりは再表示されない
+
+**知識のギャップ:**
+- **孤立ページ**（次数 ≤ 1） — Wiki の他の部分とほとんど、あるいは全く接続のないページ
+- **疎なコミュニティ**（凝集度 < 0.15、ページ数 ≥ 3） — 内部の相互参照が弱い知識領域
+- **ブリッジノード**（3 つ以上のクラスタを接続） — 複数の知識領域を結びつける重要な結節点となるページ
+
+**インタラクティブ:**
+- インサイトカードをクリックすると、対応するノードとエッジがグラフ上で **ハイライト** される。再度クリックすると選択解除される
+- 知識のギャップやブリッジノードには **Deep Research ボタン** があり、ドメインを意識したトピックで LLM 最適化された調査を起動する（コンテキストとして overview.md と purpose.md を読む）
+- 調査トピックは開始前に **編集可能な確認ダイアログ** に表示され、ユーザーがトピックや検索クエリを調整できる
+
+<p align="center">
+  <img src="assets/kg_insights.jpg" width="100%" alt="グラフインサイト">
+</p>
+
+### 7. 最適化されたクエリ検索パイプライン
+
+オリジナルは LLM が関連ページを読むだけのシンプルなクエリを記述している。本プロジェクトでは、オプションのベクトル検索と予算制御を備えた **多段階の検索パイプライン** を構築した。
 
 ```
 Phase 1: Tokenized Search
   - English: word splitting + stop word removal
-  - Chinese: CJK bigram tokenization (每个 → [每个, 个…])
+  - Japanese: morphological segmentation via Intl.Segmenter (default) or Lindera/MeCab (high-accuracy mode, opt-in)
   - Title match bonus (+10 score)
   - Searches both wiki/ and raw/sources/
 
@@ -216,46 +219,46 @@ Phase 4: Context Assembly
   - LLM instructed to cite pages by number: [1], [2], etc.
 ```
 
-**Vector Search** is fully optional — disabled by default, enabled in Settings with independent endpoint, API key, and model configuration. When disabled, the pipeline falls back to tokenized search + graph expansion. Benchmark: overall recall improved from 58.2% to 71.4% with vector search enabled.
+**ベクトル検索** は完全にオプションである。デフォルトでは無効化されており、Settings から独立したエンドポイント、API キー、モデル設定で有効化できる。無効時にはトークン化検索 + グラフ拡張にフォールバックする。ベンチマークでは、ベクトル検索を有効化することで全体的な再現率が 58.2% から 71.4% に向上した。
 
-### 8. Multi-Conversation Chat with Persistence
+### 8. 永続化対応のマルチ会話チャット
 
-The original has a single query interface. We built **full multi-conversation support**:
+オリジナルはシングルクエリインターフェースのみである。本プロジェクトでは **完全なマルチ会話サポート** を構築した。
 
-- **Independent chat sessions** — create, rename, delete conversations
-- **Conversation sidebar** — quick switching between topics
-- **Per-conversation persistence** — each conversation saved to `.llm-wiki/chats/{id}.json`
-- **Configurable history depth** — limit how many messages are sent as context (default: 10)
-- **Cited references panel** — collapsible section on each response showing which wiki pages were used, grouped by type with icons
-- **Reference persistence** — cited pages stored directly in message data, stable across restarts
-- **Regenerate** — re-generate the last response with one click (removes last assistant + user message pair, re-sends)
-- **Save to Wiki** — archive valuable answers to `wiki/queries/`, then auto-ingest to extract entities/concepts into the knowledge network
+- **独立したチャットセッション** — 会話の作成、リネーム、削除
+- **会話サイドバー** — トピック間を素早く切り替え
+- **会話単位の永続化** — 各会話は `.llm-wiki/chats/{id}.json` に保存される
+- **履歴深度の設定可能** — コンテキストとして送信するメッセージ数を制限可能（デフォルト: 10）
+- **引用参照パネル** — 各レスポンスに、利用された Wiki ページをタイプ別アイコン付きでまとめた折りたたみ可能なセクションを表示
+- **参照の永続化** — 引用されたページはメッセージデータに直接保存され、再起動後も安定して保持される
+- **再生成** — 直前のレスポンスをワンクリックで再生成（直前の assistant + user メッセージペアを削除し再送信）
+- **Wiki への保存** — 価値ある回答を `wiki/queries/` にアーカイブし、その後自動的にインジェストして、エンティティや概念を知識ネットワークへ抽出する
 
-### 9. Thinking / Reasoning Display
+### 9. Thinking / Reasoning の表示
 
-Not in the original. For LLMs that emit `<think>` blocks (DeepSeek, QwQ, etc.):
+オリジナルにはない機能。`<think>` ブロックを出力する LLM（DeepSeek、QwQ など）に対応する。
 
-- **Streaming thinking** — rolling 5-line display with opacity fade during generation
-- **Collapsed by default** — thinking blocks hidden after completion, click to expand
-- **Visual separation** — thinking content shown in distinct style, separate from the main response
+- **ストリーミング Thinking** — 生成中は不透明度フェード付きで 5 行のローリング表示
+- **デフォルトで折りたたみ** — Thinking ブロックは生成完了後は隠され、クリックで展開
+- **視覚的な分離** — Thinking の内容はメインレスポンスとは異なるスタイルで表示
 
-### 10. KaTeX Math Rendering
+### 10. KaTeX による数式レンダリング
 
-Not in the original. Full LaTeX math support across all views:
+オリジナルにはない機能。すべてのビューにわたる完全な LaTeX 数式サポート。
 
-- **KaTeX rendering** — inline `$...$` and block `$$...$$` formulas rendered via remark-math + rehype-katex
-- **Milkdown math plugin** — preview editor renders math natively via @milkdown/plugin-math
-- **Auto-detection** — bare `\begin{aligned}` and other LaTeX environments automatically wrapped with `$$` delimiters
-- **Unicode fallback** — 100+ symbol mappings (α, ∑, →, ≤, etc.) for simple inline notation outside math blocks
+- **KaTeX レンダリング** — インラインの `$...$` とブロックの `$$...$$` の数式を remark-math + rehype-katex で描画
+- **Milkdown の数式プラグイン** — プレビューエディタが @milkdown/plugin-math 経由でネイティブに数式を描画
+- **自動検出** — 裸の `\begin{aligned}` などの LaTeX 環境は自動的に `$$` デリミタでラップされる
+- **Unicode フォールバック** — 数式ブロック外のシンプルなインライン記法のために 100 以上のシンボルマッピング（α、∑、→、≤ など）を提供
 
-### 11. Review System (Async Human-in-the-Loop)
+### 11. レビューシステム（非同期 Human-in-the-Loop）
 
-The original suggests staying involved during ingest. We added an **asynchronous review queue**:
+オリジナルはインジェスト中に人間が関与し続けることを推奨している。本プロジェクトでは **非同期レビューキュー** を追加した。
 
-- LLM flags items needing human judgment during ingest
-- **Predefined action types**: Create Page, Deep Research, Skip — constrained to prevent LLM hallucination of arbitrary actions
-- **Search queries generated at ingest time** — LLM pre-generates optimized web search queries for each review item
-- User handles reviews at their convenience — doesn't block ingest
+- LLM がインジェスト中に人間の判断を要する項目をフラグ付けする
+- **事前定義されたアクションタイプ**: Create Page、Deep Research、Skip — 任意のアクションが LLM のハルシネーションで生成されないよう制限
+- **インジェスト時に検索クエリを生成** — 各レビュー項目について LLM が事前に最適化された Web 検索クエリを生成
+- ユーザーは都合の良いタイミングでレビューを処理可能 — インジェストをブロックしない
 
 ### 12. Deep Research
 
@@ -263,115 +266,115 @@ The original suggests staying involved during ingest. We added an **asynchronous
   <img src="assets/1-deepresearch.jpg" width="100%" alt="Deep Research">
 </p>
 
-Not in the original. When the LLM identifies knowledge gaps:
+オリジナルにはない機能。LLM が知識のギャップを特定したときに動作する。
 
-- **Web search** (Tavily API) finds relevant sources with full content extraction (no truncation)
-- **Multiple search queries** per topic — LLM-generated at ingest time, optimized for search engines
-- **LLM-optimized research topics** — when triggered from Graph Insights, LLM reads overview.md + purpose.md to generate domain-specific topics and queries (not generic keywords)
-- **User confirmation dialog** — editable topic and search queries shown for review before research starts
-- **LLM synthesizes** findings into a wiki research page with cross-references to existing wiki
-- **Thinking display** — `<think>` blocks shown as collapsible sections during synthesis, auto-scroll to latest content
-- **Auto-ingest** — research results automatically processed to extract entities/concepts into the wiki
-- **Task queue** with 3 concurrent tasks
-- **Research Panel** — dedicated sidebar panel with dynamic height, real-time streaming progress
+- **Web 検索**（Tavily API）— 関連ソースを発見し、本文を完全抽出（切り詰めなし）
+- **トピックごとに複数の検索クエリ** — インジェスト時に LLM が生成し、検索エンジン向けに最適化される
+- **LLM 最適化された調査トピック** — Graph Insights から起動した場合、LLM は overview.md と purpose.md を読み、ドメインに特化したトピックとクエリを生成する（汎用キーワードではない）
+- **ユーザー確認ダイアログ** — 調査開始前に編集可能なトピックと検索クエリを表示
+- **LLM が成果物を統合** — Wiki の研究ページとしてまとめ、既存の Wiki への相互参照を付与
+- **Thinking 表示** — `<think>` ブロックは統合中に折りたたみ可能なセクションとして表示され、最新内容まで自動スクロールする
+- **自動インジェスト** — 調査結果は自動的に処理され、エンティティ／概念が Wiki に抽出される
+- **タスクキュー** — 同時実行 3 タスク
+- **Research パネル** — 動的な高さを持ち、進捗をリアルタイムでストリーミング表示する専用サイドバーパネル
 
-### 13. Browser Extension (Web Clipper)
+### 13. ブラウザ拡張機能（Web クリッパー）
 
 <p align="center">
-  <img src="assets/4-chrome_extension_webclipper.jpg" width="100%" alt="Chrome Extension Web Clipper">
+  <img src="assets/4-chrome_extension_webclipper.jpg" width="100%" alt="Chrome 拡張機能 Web クリッパー">
 </p>
 
-The original mentions Obsidian Web Clipper. We built a **dedicated Chrome Extension** (Manifest V3):
+オリジナルは Obsidian Web Clipper に言及している。本プロジェクトでは **専用の Chrome 拡張機能**（Manifest V3）を構築した。
 
-- **Mozilla Readability.js** for accurate article extraction (strips ads, nav, sidebars)
-- **Turndown.js** for HTML → Markdown conversion with table support
-- **Project picker** — choose which wiki to clip into (supports multi-project)
-- **Local HTTP API** (port 19827, tiny_http) — Extension ↔ App communication
-- **Auto-ingest** — clipped content automatically triggers the two-step ingest pipeline
-- **Clip watcher** — polls every 3 seconds for new clips, processes automatically
-- **Offline preview** — shows extracted content even when app is not running
+- **Mozilla Readability.js** による正確な記事抽出（広告、ナビゲーション、サイドバーを除去）
+- **Turndown.js** による HTML → Markdown 変換（テーブル対応）
+- **プロジェクトピッカー** — クリップ先の Wiki を選択可能（マルチプロジェクト対応）
+- **ローカル HTTP API**（ポート 19827、tiny_http） — 拡張機能 ↔ アプリ間の通信
+- **自動インジェスト** — クリップしたコンテンツが自動的に 2 段階インジェストパイプラインを起動
+- **Clip ウォッチャー** — 3 秒ごとに新しいクリップをポーリングし、自動的に処理
+- **オフラインプレビュー** — アプリが起動していない状態でも抽出済みコンテンツを表示
 
-### 14. Multi-format Document Support
+### 14. マルチフォーマットドキュメント対応
 
-The original focuses on text/markdown. We support structured extraction preserving document semantics:
+オリジナルはテキスト／Markdown が中心である。本プロジェクトでは、ドキュメントのセマンティクスを保ったまま構造化抽出をサポートする。
 
-| Format | Method |
+| 形式 | 抽出方法 |
 |--------|--------|
-| PDF | pdf-extract (Rust) with file caching |
-| DOCX | docx-rs — headings, bold/italic, lists, tables → structured Markdown |
-| PPTX | ZIP + XML — slide-by-slide extraction with heading/list structure |
-| XLSX/XLS/ODS | calamine — proper cell types, multi-sheet support, Markdown tables |
-| Images | Native preview (png, jpg, gif, webp, svg, etc.) |
-| Video/Audio | Built-in player |
-| Web clips | Readability.js + Turndown.js → clean Markdown |
+| PDF | pdf-extract（Rust）、ファイルキャッシュ付き |
+| DOCX | docx-rs — 見出し、太字／斜体、リスト、テーブル → 構造化 Markdown |
+| PPTX | ZIP + XML — 見出し／リスト構造を保ったままスライド単位で抽出 |
+| XLSX/XLS/ODS | calamine — 適切なセル型、複数シート対応、Markdown テーブル |
+| 画像 | ネイティブプレビュー（png、jpg、gif、webp、svg など） |
+| 動画／音声 | 内蔵プレイヤー |
+| Web クリップ | Readability.js + Turndown.js → クリーンな Markdown |
 
-### 15. File Deletion with Cascade Cleanup
+### 15. カスケード削除を伴うファイル削除
 
-The original has no deletion mechanism. We added **intelligent cascade deletion**:
+オリジナルには削除機構がない。本プロジェクトでは **インテリジェントなカスケード削除** を追加した。
 
-- Deleting a source file removes its wiki summary page
-- **3-method matching** finds related wiki pages: frontmatter `sources[]` field, source summary page name, frontmatter section references
-- **Shared entity preservation** — entity/concept pages linked to multiple sources only have the deleted source removed from their `sources[]` array, not deleted entirely
-- **Index cleanup** — removed pages are purged from index.md
-- **Wikilink cleanup** — dead `[[wikilinks]]` to deleted pages are removed from remaining wiki pages
+- ソースファイルを削除すると、その Wiki サマリーページも削除される
+- **3 種類のマッチング手法** で関連 Wiki ページを検出する: フロントマター `sources[]` フィールド、ソースサマリーページ名、フロントマター内のセクション参照
+- **共有エンティティの保護** — 複数のソースにリンクされた entity／concept ページは、削除されたソースだけが `sources[]` 配列から除去され、ページ自体は削除されない
+- **Index のクリーンアップ** — 削除されたページは index.md からも除去される
+- **Wikilink のクリーンアップ** — 削除されたページへの不要な `[[wikilinks]]` は、残りの Wiki ページから取り除かれる
 
-### 16. Configurable Context Window
+### 16. 設定可能なコンテキストウィンドウ
 
-Not in the original. Users can configure how much context the LLM receives:
+オリジナルにはない機能。LLM が受け取るコンテキストの量をユーザーが設定できる。
 
-- **Slider from 4K to 1M tokens** — adapts to different LLM capabilities
-- **Proportional budget allocation** — larger windows get proportionally more wiki content
-- **60/20/5/15 split** — wiki pages / chat history / index / system prompt
+- **4K から 1M トークンまでのスライダー** — さまざまな LLM の能力に適合
+- **比例配分のバジェット割り当て** — ウィンドウが大きいほど、より多くの Wiki コンテンツが比例して割り当てられる
+- **60/20/5/15 分割** — Wiki ページ / チャット履歴 / Index / システムプロンプト
 
-### 17. Cross-Platform Compatibility
+### 17. クロスプラットフォーム対応
 
-The original is platform-agnostic (abstract pattern). We handle concrete cross-platform concerns:
+オリジナルはプラットフォームに依存しない（抽象的なパターン）。本プロジェクトでは具体的なクロスプラットフォーム上の課題に対処する。
 
-- **Path normalization** — unified `normalizePath()` used across 22+ files, backslash → forward slash
-- **Unicode-safe string handling** — char-based slicing instead of byte-based (prevents crashes on CJK filenames)
-- **macOS close-to-hide** — close button hides window (app stays running in background), click dock icon to restore, Cmd+Q to quit
-- **Windows/Linux close confirmation** — confirmation dialog before quitting to prevent accidental data loss
-- **Tauri v2** — native desktop on macOS, Windows, Linux
-- **GitHub Actions CI/CD** — automated builds for macOS (ARM + Intel), Windows (.msi), Linux (.deb / .AppImage)
+- **パスの正規化** — 22 以上のファイルで使用される統一された `normalizePath()`、バックスラッシュ → スラッシュ変換
+- **Unicode セーフな文字列処理** — バイトベースではなく文字ベースのスライス（CJK ファイル名でのクラッシュを防止）
+- **macOS の close-to-hide** — クローズボタンでウィンドウを非表示（アプリはバックグラウンドで継続）。Dock アイコンクリックで復元、Cmd+Q で終了
+- **Windows／Linux のクローズ確認** — 終了前に確認ダイアログを表示し、誤操作によるデータ損失を防止
+- **Tauri v2** — macOS、Windows、Linux のネイティブデスクトップ
+- **GitHub Actions CI/CD** — macOS（ARM + Intel）、Windows（.msi）、Linux（.deb / .AppImage）の自動ビルド
 
-### 18. Other Additions
+### 18. その他の追加機能
 
-- **i18n** — English + Chinese interface (react-i18next)
-- **Settings persistence** — LLM provider, API key, model, context size, language saved via Tauri Store
-- **Obsidian config** — auto-generated `.obsidian/` directory with recommended settings
-- **Markdown rendering** — GFM tables with borders, proper code blocks, wikilink processing in chat and preview
-- **Multi-provider LLM support** — OpenAI, Anthropic, Google, Ollama, Custom — each with provider-specific streaming and headers
-- **15-minute timeout** — long ingest operations won't fail prematurely
-- **dataVersion signaling** — graph and UI automatically refresh when wiki content changes
+- **i18n** — 英語 + 日本語のインターフェース（react-i18next）、初回起動時に OS ロケールを自動検出
+- **設定の永続化** — LLM プロバイダ、API キー、モデル、コンテキストサイズ、言語が Tauri Store 経由で保存される
+- **Obsidian 設定** — 推奨設定を含む `.obsidian/` ディレクトリを自動生成
+- **Markdown レンダリング** — 罫線付きの GFM テーブル、適切なコードブロック、チャットおよびプレビュー上での Wikilink 処理
+- **マルチプロバイダ LLM 対応** — OpenAI、Anthropic、Google、Ollama、Custom — それぞれプロバイダ固有のストリーミングとヘッダーに対応
+- **15 分のタイムアウト** — 長時間のインジェスト操作が早期失敗しないようにする
+- **dataVersion シグナル** — Wiki コンテンツが変更されると、グラフと UI が自動的に再描画される
 
-## Tech Stack
+## 技術スタック
 
-| Layer | Technology |
+| レイヤー | 技術 |
 |-------|-----------|
-| Desktop | Tauri v2 (Rust backend) |
+| Desktop | Tauri v2（Rust バックエンド） |
 | Frontend | React 19 + TypeScript + Vite |
 | UI | shadcn/ui + Tailwind CSS v4 |
-| Editor | Milkdown (ProseMirror-based WYSIWYG) |
+| Editor | Milkdown（ProseMirror ベースの WYSIWYG） |
 | Graph | sigma.js + graphology + ForceAtlas2 |
-| Search | Tokenized search + graph relevance + optional vector (LanceDB) |
-| Vector DB | LanceDB (Rust, embedded, optional) |
+| Search | トークン化検索 + グラフ関連性 + オプションのベクトル検索（LanceDB） |
+| Vector DB | LanceDB（Rust 製、組み込み、オプション） |
 | PDF | pdf-extract |
 | Office | docx-rs + calamine |
 | i18n | react-i18next |
 | State | Zustand |
-| LLM | Streaming fetch (OpenAI, Anthropic, Google, Ollama, Custom) |
+| LLM | ストリーミング fetch（OpenAI、Anthropic、Google、Ollama、Custom） |
 | Web Search | Tavily API |
 
-## Installation
+## インストール
 
-### Pre-built Binaries
+### ビルド済みバイナリ
 
-Download from [Releases](https://github.com/nashsu/llm_wiki/releases):
-- **macOS**: `.dmg` (Apple Silicon + Intel)
+[Releases](https://github.com/nashsu/llm_wiki/releases) からダウンロードできる。
+- **macOS**: `.dmg`（Apple Silicon + Intel）
 - **Windows**: `.msi`
 - **Linux**: `.deb` / `.AppImage`
 
-### Build from Source
+### ソースからのビルド
 
 ```bash
 # Prerequisites: Node.js 20+, Rust 1.70+
@@ -382,25 +385,27 @@ npm run tauri dev      # Development
 npm run tauri build    # Production build
 ```
 
-### Chrome Extension
+### Chrome 拡張機能
 
-1. Open `chrome://extensions`
-2. Enable "Developer mode"
-3. Click "Load unpacked"
-4. Select the `extension/` directory
+1. `chrome://extensions` を開く
+2. 「デベロッパーモード」を有効化する
+3. 「パッケージ化されていない拡張機能を読み込む」をクリック
+4. `extension/` ディレクトリを選択する
 
-## Quick Start
+## クイックスタート
 
-1. Launch the app → Create a new project (choose a template)
-2. Go to **Settings** → Configure your LLM provider (API key + model)
-3. Go to **Sources** → Import documents (PDF, DOCX, MD, etc.)
-4. Watch the **Activity Panel** — LLM automatically builds wiki pages
-5. Use **Chat** to query your knowledge base
-6. Browse the **Knowledge Graph** to see connections
-7. Check **Review** for items needing your attention
-8. Run **Lint** periodically to maintain wiki health
+1. アプリを起動 → 新規プロジェクトを作成（テンプレートを選択）
+2. **Settings** へ移動 → LLM プロバイダを設定（API キー + モデル）
+3. **Sources** へ移動 → ドキュメント（PDF、DOCX、MD など）をインポート
+4. **アクティビティパネル** を確認 — LLM が自動的に Wiki ページを構築する
+5. **Chat** で知識ベースに対して質問する
+6. **知識グラフ** を眺めてつながりを把握する
+7. **Review** で対応の必要な項目を確認する
+8. **Lint** を定期的に実行して Wiki の健全性を保つ
 
-## Project Structure
+> 初めて使う方は、ステップごとの詳しい手順や日本語形態素解析・Obsidian 併用などをまとめた [日本語ユーザーマニュアル (MANUAL_JA.md)](MANUAL_JA.md) も参照してください。
+
+## プロジェクト構成
 
 ```
 my-wiki/
@@ -433,6 +438,6 @@ my-wiki/
  </picture>
 </a>
 
-## License
+## ライセンス
 
-This project is licensed under the **GNU General Public License v3.0** — see [LICENSE](LICENSE) for details.
+本プロジェクトは **GNU General Public License v3.0** の下でライセンスされる — 詳細は [LICENSE](LICENSE) を参照のこと。

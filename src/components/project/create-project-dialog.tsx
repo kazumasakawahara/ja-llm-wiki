@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useTranslation } from "react-i18next"
 import { open } from "@tauri-apps/plugin-dialog"
 import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter,
@@ -8,7 +9,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { FolderOpen } from "lucide-react"
 import { createProject, writeFile, createDirectory } from "@/commands/fs"
-import { getTemplate } from "@/lib/templates"
+import { getTemplate, type TemplateLocale } from "@/lib/templates"
 import { TemplatePicker } from "@/components/project/template-picker"
 import type { WikiProject } from "@/types/wiki"
 import { normalizePath } from "@/lib/path-utils"
@@ -20,6 +21,7 @@ interface CreateProjectDialogProps {
 }
 
 export function CreateProjectDialog({ open: isOpen, onOpenChange, onCreated }: CreateProjectDialogProps) {
+  const { t, i18n } = useTranslation()
   const [name, setName] = useState("")
   const [path, setPath] = useState("")
   const [selectedTemplate, setSelectedTemplate] = useState("general")
@@ -30,7 +32,7 @@ export function CreateProjectDialog({ open: isOpen, onOpenChange, onCreated }: C
     const selected = await open({
       directory: true,
       multiple: false,
-      title: "Select Parent Directory",
+      title: t("project.selectParentDir"),
     })
     if (selected) {
       setPath(selected)
@@ -39,7 +41,7 @@ export function CreateProjectDialog({ open: isOpen, onOpenChange, onCreated }: C
 
   async function handleCreate() {
     if (!name.trim() || !path.trim()) {
-      setError("Name and path are required")
+      setError(t("project.errorRequired"))
       return
     }
     setCreating(true)
@@ -48,7 +50,8 @@ export function CreateProjectDialog({ open: isOpen, onOpenChange, onCreated }: C
       const project = await createProject(name.trim(), path.trim())
       const pp = normalizePath(project.path)
 
-      const template = getTemplate(selectedTemplate)
+      const locale: TemplateLocale = i18n.language === "ja" ? "ja" : "en"
+      const template = getTemplate(selectedTemplate, locale)
       await writeFile(`${pp}/schema.md`, template.schema)
       await writeFile(`${pp}/purpose.md`, template.purpose)
       for (const dir of template.extraDirs) {
@@ -71,19 +74,19 @@ export function CreateProjectDialog({ open: isOpen, onOpenChange, onCreated }: C
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-lg">
         <DialogHeader>
-          <DialogTitle>Create New Wiki Project</DialogTitle>
+          <DialogTitle>{t("project.createTitle")}</DialogTitle>
         </DialogHeader>
         <div className="flex flex-col gap-4 py-4">
           <div className="flex flex-col gap-2">
-            <Label htmlFor="name">Project Name</Label>
-            <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="my-research-wiki" />
+            <Label htmlFor="name">{t("project.name")}</Label>
+            <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder={t("project.namePlaceholder")} />
           </div>
           <div className="flex flex-col gap-2">
-            <Label>Template</Label>
+            <Label>{t("project.template")}</Label>
             <TemplatePicker selected={selectedTemplate} onSelect={setSelectedTemplate} />
           </div>
           <div className="flex flex-col gap-2">
-            <Label htmlFor="path">Parent Directory</Label>
+            <Label htmlFor="path">{t("project.parentDir")}</Label>
             <div className="flex gap-2">
               <Input id="path" value={path} onChange={(e) => setPath(e.target.value)} placeholder="/Users/you/projects" className="flex-1" />
               <Button variant="outline" size="icon" onClick={handleBrowse} type="button">
@@ -94,8 +97,8 @@ export function CreateProjectDialog({ open: isOpen, onOpenChange, onCreated }: C
           {error && <p className="text-sm text-destructive">{error}</p>}
         </div>
         <DialogFooter>
-          <Button variant="outline" onClick={() => onOpenChange(false)}>Cancel</Button>
-          <Button onClick={handleCreate} disabled={creating}>{creating ? "Creating..." : "Create"}</Button>
+          <Button variant="outline" onClick={() => onOpenChange(false)}>{t("project.cancel")}</Button>
+          <Button onClick={handleCreate} disabled={creating}>{creating ? t("project.creating") : t("project.create")}</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
