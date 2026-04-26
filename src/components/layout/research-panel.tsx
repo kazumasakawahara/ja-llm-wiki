@@ -85,7 +85,7 @@ export function ResearchPanel() {
         {tasks.length === 0 ? (
           <div className="flex flex-col items-center justify-center gap-2 p-8 text-center text-xs text-muted-foreground">
             <Search className="h-8 w-8 opacity-20" />
-            <p>No research tasks yet</p>
+            <p>{t("research.noTasksYet")}</p>
             <p>Enter a topic above or click "Deep Research" in Review</p>
           </div>
         ) : (

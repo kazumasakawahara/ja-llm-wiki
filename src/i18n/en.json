@@ -13,7 +13,8 @@
     "settings": "Settings",
     "switchProject": "Switch Project",
     "updateAvailable": "Update available",
-    "updateAvailableSuffix": " · update"
+    "updateAvailableSuffix": " · update",
+    "deepResearch": "Deep Research"
   },
   "welcome": {
     "newProject": "New Project",
@@ -29,7 +30,8 @@
     "template": "Template",
     "cancel": "Cancel",
     "create": "Create",
-    "creating": "Creating..."
+    "creating": "Creating...",
+    "errorRequired": "Name and parent directory are required"
   },
   "sources": {
     "title": "Raw Sources",
@@ -69,7 +71,8 @@
     "title": "Search",
     "placeholder": "Search wiki pages...",
     "noResults": "No results found",
-    "startSearching": "Type to search wiki pages"
+    "startSearching": "Type to search wiki pages",
+    "startHint": "Press Enter to search"
   },
   "lint": {
     "title": "Lint",
@@ -83,7 +86,8 @@
     "contradiction": "Contradiction",
     "stale": "Stale Content",
     "missingPage": "Missing Page",
-    "suggestion": "Suggestion"
+    "suggestion": "Suggestion",
+    "startHint": "Run lint to check wiki health"
   },
   "review": {
     "title": "Review",
@@ -132,7 +136,10 @@
         "savedBadge": "saved",
         "configuredBadge": "configured",
         "activeBadge": "● active",
-        "customModelTooltip": "Type a custom model id"
+        "customModelTooltip": "Type a custom model id",
+        "apiMode": "API Mode",
+        "contextWindow": "Context window",
+        "endpoint": "Endpoint"
       },
       "embedding": {
         "title": "Vector Embeddings",
@@ -213,10 +220,12 @@
     "clearCompleted": "Clear completed",
     "cancelAll": "Cancel all queued and running tasks",
     "retry": "Retry",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "ingestQueue": "Ingest Queue"
   },
   "research": {
-    "topicPlaceholder": "Enter a research topic..."
+    "topicPlaceholder": "Enter a research topic...",
+    "noTasksYet": "No research tasks yet"
   },
   "fileTree": {
     "noProject": "No project open"

@@ -198,7 +198,7 @@ function PresetRow({
         <div className="space-y-4 border-t bg-background/50 px-4 py-3">
           {preset.provider === "custom" && (
             <div className="space-y-2">
-              <Label>API Mode</Label>
+              <Label>{t("settings.sections.llm.apiMode")}</Label>
               <div className="flex flex-wrap gap-2">
                 {(
                   [
@@ -249,7 +249,7 @@ function PresetRow({
 
           {needsApiKey && (
             <div className="space-y-2">
-              <Label>API Key</Label>
+              <Label>{t("settings.apiKey")}</Label>
               <Input
                 type="password"
                 value={apiKey}
@@ -264,7 +264,7 @@ function PresetRow({
           )}
 
           <div className="space-y-2">
-            <Label>Model</Label>
+            <Label>{t("settings.model")}</Label>
             <ModelPicker
               value={model}
               suggestions={preset.suggestedModels ?? []}
@@ -274,7 +274,7 @@ function PresetRow({
           </div>
 
           <div className="space-y-2">
-            <Label>Context window</Label>
+            <Label>{t("settings.sections.llm.contextWindow")}</Label>
             <ContextSizeSelector
               value={context}
               onChange={(v) => onChange({ maxContextSize: v })}
@@ -300,6 +300,7 @@ interface EndpointFieldProps {
  * blur, if normalization would change the value, we apply it.
  */
 function EndpointField({ value, mode, placeholder, onChange }: EndpointFieldProps) {
+  const { t } = useTranslation()
   const preview = useMemo(() => normalizeEndpoint(value, mode), [value, mode])
 
   function handleBlur() {
@@ -312,7 +313,7 @@ function EndpointField({ value, mode, placeholder, onChange }: EndpointFieldProp
 
   return (
     <div className="space-y-1.5">
-      <Label>Endpoint</Label>
+      <Label>{t("settings.sections.llm.endpoint")}</Label>
       <Input
         value={value}
         onChange={(e) => onChange(e.target.value)}

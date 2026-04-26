@@ -139,7 +139,7 @@ export function ActivityPanel() {
           {hasQueue && (queueSummary.processing > 0 || queueSummary.pending > 0) && (
             <div className="px-3 py-1.5 border-b border-border/50">
               <div className="flex items-center justify-between text-[10px] text-muted-foreground mb-1 gap-2">
-                <span>Ingest Queue</span>
+                <span>{t("activity.ingestQueue")}</span>
                 <span className="flex-1 text-right">
                   {queueSummary.total - queueSummary.pending - queueSummary.processing}/{queueSummary.total} complete
                 </span>

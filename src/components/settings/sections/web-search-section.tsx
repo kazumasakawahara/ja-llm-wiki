@@ -49,7 +49,7 @@ export function WebSearchSection({ draft, setDraft }: Props) {
 
       {draft.searchProvider !== "none" && (
         <div className="space-y-2">
-          <Label>API Key</Label>
+          <Label>{t("settings.apiKey")}</Label>
           <Input
             type="password"
             value={draft.searchApiKey}

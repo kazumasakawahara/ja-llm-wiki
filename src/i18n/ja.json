@@ -13,7 +13,8 @@
     "settings": "設定",
     "switchProject": "プロジェクト切替",
     "updateAvailable": "更新あり",
-    "updateAvailableSuffix": " · 更新"
+    "updateAvailableSuffix": " · 更新",
+    "deepResearch": "Deep Research"
   },
   "welcome": {
     "newProject": "新規プロジェクト",
@@ -29,7 +30,8 @@
     "template": "テンプレート",
     "cancel": "キャンセル",
     "create": "作成",
-    "creating": "作成中..."
+    "creating": "作成中...",
+    "errorRequired": "プロジェクト名と親ディレクトリは必須です"
   },
   "sources": {
     "title": "ソース",
@@ -69,7 +71,8 @@
     "title": "検索",
     "placeholder": "wiki ページを検索...",
     "noResults": "該当する結果が見つかりません",
-    "startSearching": "wiki ページを検索するキーワードを入力"
+    "startSearching": "wiki ページを検索するキーワードを入力",
+    "startHint": "Enter キーで検索"
   },
   "lint": {
     "title": "Lint",
@@ -83,7 +86,8 @@
     "contradiction": "矛盾",
     "stale": "情報が古い可能性",
     "missingPage": "ページ不足",
-    "suggestion": "提案"
+    "suggestion": "提案",
+    "startHint": "Lint を実行して wiki の健全性を確認"
   },
   "review": {
     "title": "レビュー",
@@ -132,7 +136,10 @@
         "savedBadge": "保存済み",
         "configuredBadge": "設定済み",
         "activeBadge": "● アクティブ",
-        "customModelTooltip": "カスタムモデル ID を入力"
+        "customModelTooltip": "カスタムモデル ID を入力",
+        "apiMode": "API モード",
+        "contextWindow": "コンテキストウィンドウ",
+        "endpoint": "エンドポイント"
       },
       "embedding": {
         "title": "ベクター埋め込み",
@@ -213,10 +220,12 @@
     "clearCompleted": "完了済みをクリア",
     "cancelAll": "キュー内およびすべての処理中タスクを中止",
     "retry": "再試行",
-    "cancel": "中止"
+    "cancel": "中止",
+    "ingestQueue": "取り込みキュー"
   },
   "research": {
-    "topicPlaceholder": "リサーチトピックを入力..."
+    "topicPlaceholder": "リサーチトピックを入力...",
+    "noTasksYet": "リサーチタスクはまだありません"
   },
   "fileTree": {
     "noProject": "プロジェクトが開かれていません"

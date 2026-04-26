@@ -78,7 +78,7 @@ export function SearchView() {
         ) : !hasSearched ? (
           <div className="flex flex-col items-center justify-center gap-2 p-8 text-center text-sm text-muted-foreground">
             <Search className="h-8 w-8 text-muted-foreground/30" />
-            <p>Press Enter to search</p>
+            <p>{t("search.startHint")}</p>
           </div>
         ) : results.length === 0 ? (
           <div className="p-4 text-center text-sm text-muted-foreground">
