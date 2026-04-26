@@ -57,7 +57,7 @@ export function SourcesView() {
 
     const selected = await open({
       multiple: true,
-      title: "Import Source Files",
+      title: t("sources.importFilesDialog"),
       filters: [
         {
           name: "Documents",
@@ -129,7 +129,7 @@ export function SourcesView() {
 
     const selected = await open({
       directory: true,
-      title: "Import Source Folder",
+      title: t("sources.importFolderDialog"),
     })
 
     if (!selected || typeof selected !== "string") return
@@ -368,7 +368,7 @@ export function SourcesView() {
       <div className="flex items-center justify-between border-b px-4 py-3">
         <h2 className="text-sm font-semibold">{t("sources.title")}</h2>
         <div className="flex gap-1">
-          <Button variant="ghost" size="icon" onClick={loadSources} title="Refresh">
+          <Button variant="ghost" size="icon" onClick={loadSources} title={t("sources.refresh")}>
             <RefreshCw className="h-4 w-4" />
           </Button>
           <Button size="sm" onClick={handleImport} disabled={importing}>
@@ -501,6 +501,7 @@ function SourceTree({
   ingestingPath: string | null
   depth: number
 }) {
+  const { t } = useTranslation()
   const [collapsed, setCollapsed] = useState<Record<string, boolean>>({})
 
   const toggle = (path: string) => {
@@ -568,7 +569,7 @@ function SourceTree({
               variant="ghost"
               size="icon"
               className="h-7 w-7 shrink-0"
-              title="Ingest"
+              title={t("sources.ingest")}
               disabled={ingestingPath === node.path}
               onClick={() => onIngest(node)}
             >
@@ -578,7 +579,7 @@ function SourceTree({
               variant="ghost"
               size="icon"
               className="h-7 w-7 shrink-0 text-muted-foreground hover:text-destructive"
-              title="Delete"
+              title={t("sources.delete")}
               onClick={() => onDelete(node)}
             >
               <Trash2 className="h-3.5 w-3.5" />

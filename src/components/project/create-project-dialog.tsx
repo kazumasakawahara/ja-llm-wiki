@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useTranslation } from "react-i18next"
 import { open } from "@tauri-apps/plugin-dialog"
 import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter,
@@ -20,6 +21,7 @@ interface CreateProjectDialogProps {
 }
 
 export function CreateProjectDialog({ open: isOpen, onOpenChange, onCreated }: CreateProjectDialogProps) {
+  const { t } = useTranslation()
   const [name, setName] = useState("")
   const [path, setPath] = useState("")
   const [selectedTemplate, setSelectedTemplate] = useState("general")
@@ -30,7 +32,7 @@ export function CreateProjectDialog({ open: isOpen, onOpenChange, onCreated }: C
     const selected = await open({
       directory: true,
       multiple: false,
-      title: "Select Parent Directory",
+      title: t("project.selectParentDir"),
     })
     if (selected) {
       setPath(selected)
