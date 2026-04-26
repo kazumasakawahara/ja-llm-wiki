@@ -296,10 +296,137 @@ ${BASE_CONTRADICTION_JA}
 `,
 }
 
-// Tasks 20-23 will replace these EN fallbacks with real Japanese versions.
-// Until then, missing-locale fallback to EN keeps users functional.
+const personalTemplateJa: WikiTemplate = {
+  id: "personal",
+  name: "自己成長",
+  description: "目標・習慣・振り返り・ジャーナルを記録して自己改善を進める",
+  icon: "🌱",
+  extraDirs: ["wiki/goals", "wiki/habits", "wiki/reflections", "wiki/journal"],
+  schema: `# Wiki スキーマ — 自己成長
+
+## ページタイプ
+
+| Type | Directory | Purpose |
+|------|-----------|---------|
+${BASE_SCHEMA_TYPES_JA}
+| goal | wiki/goals/ | 取り組んでいる具体的な成果(目標) |
+| habit | wiki/habits/ | 繰り返し行う行動とその記録(習慣) |
+| reflection | wiki/reflections/ | 定期的なレビューと得られた学び(振り返り) |
+| journal | wiki/journal/ | 日々のフリーフォームな記録(ジャーナル) |
+
+## 命名規則
+
+${BASE_NAMING_JA}
+- goal: 成果をスラッグ化 (例: \`run-a-marathon.md\`, \`learn-spanish.md\`)
+- habit: 行動名 (例: \`daily-meditation.md\`, \`morning-pages.md\`)
+- reflection: 種別 + 日付 (例: \`weekly-2024-03.md\`, \`quarterly-2024-q1.md\`)
+- journal: 日付スラッグ (例: \`2024-03-15.md\`)
+
+## Frontmatter
+
+${BASE_FRONTMATTER_JA}
+
+goal ページはさらに:
+\`\`\`yaml
+target_date: YYYY-MM-DD
+status: active | paused | achieved | abandoned
+progress: 0-100
+\`\`\`
+
+habit ページはさらに:
+\`\`\`yaml
+frequency: daily | weekly | monthly
+streak: N
+status: active | paused | dropped
+\`\`\`
+
+reflection ページはさらに:
+\`\`\`yaml
+period: weekly | monthly | quarterly | annual
+\`\`\`
+
+## Index フォーマット
+
+${BASE_INDEX_FORMAT_JA}
+
+## Log フォーマット
+
+${BASE_LOG_FORMAT_JA}
+
+## 相互参照ルール
+
+${BASE_CROSSREF_JA}
+- reflection ページはその期間にレビューした goal や habit を参照する
+- goal は支えとなる habit を \`related:\` でリンクする
+- journal エントリは本文中で \`[[slug]]\` を使って goal や reflection を参照できる
+
+## 矛盾の取り扱い
+
+${BASE_CONTRADICTION_JA}
+
+## 自己成長固有の慣習
+
+- journal や reflection には正直に書く — この wiki は他人ではなく自分のためのものである
+- goal の進捗フィールドは定期的に更新する。古いままのデータは無いより悪い
+- 成果目標(何を得たいか)とプロセス目標(何をするか)を区別する
+- 習慣がうまくいった/いかなかった事実だけでなく、*なぜ*そうなったかを振り返る
+- 複数の goal や期間にまたがる横断的な気づきは synthesis ディレクトリに書く
+`,
+  purpose: `# プロジェクトの目的 — 自己成長
+
+## 注力領域
+
+<!-- 今、自分のどの領域・どの側面に積極的に取り組んでいますか? -->
+
+1.
+2.
+3.
+
+## 動機
+
+<!-- なぜ今なのか? この wiki を始めたきっかけは何ですか? -->
+
+## 現在の目標 (サマリー)
+
+<!-- ハイレベルな一覧 — 詳細な goal ページは wiki/goals/ に作成する -->
+
+- [ ]
+- [ ]
+- [ ]
+
+## 取り組み中の習慣
+
+<!-- ハイレベルな一覧 — 詳細な habit ページは wiki/habits/ に作成する -->
+
+-
+-
+
+## レビューの頻度
+
+**毎日のジャーナル:** はい / いいえ
+**週次の振り返り:**
+**月次の振り返り:**
+**四半期の振り返り:**
+
+## 指針となる原則
+
+<!-- 自己成長の取り組みを導く価値観や原則は何ですか? -->
+
+1.
+2.
+3.
+
+## 今年のテーマ
+
+<!-- 今年の意図を表す一語または一文。 -->
+
+>
+`,
+}
+
 export const TEMPLATES_JA: WikiTemplate[] = [
   researchTemplateJa,
   readingTemplateJa,
-  ...TEMPLATES_EN.filter((t) => t.id !== "research" && t.id !== "reading"),
+  personalTemplateJa,
+  ...TEMPLATES_EN.filter((t) => t.id !== "research" && t.id !== "reading" && t.id !== "personal"),
 ]
