@@ -58,16 +58,19 @@ jobs:
       - name: Install frontend dependencies
         run: npm install
 
+      # macOS code signing is disabled in this fork. Adding APPLE_*
+      # env vars here (even when populated from undefined secrets)
+      # caused tauri-action to attempt `security import` with an
+      # empty certificate and fail. Without these env vars,
+      # tauri-action ships an unsigned .app/.dmg. macOS users can
+      # bypass the Gatekeeper warning via right-click → Open, or
+      # `xattr -cr "LLM Wiki.app"`. Maintainers who want signed
+      # builds should re-add the APPLE_CERTIFICATE / APPLE_ID /
+      # APPLE_TEAM_ID etc. secrets and the matching env block.
       - name: Build Tauri app
         uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
-          APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
-          APPLE_SIGNING_IDENTITY: ${{ secrets.APPLE_SIGNING_IDENTITY }}
-          APPLE_ID: ${{ secrets.APPLE_ID }}
-          APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
-          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         with:
           # Tag-triggered runs publish a real GitHub Release.
           # Manual (workflow_dispatch) runs leave tagName/releaseName
