@@ -22,6 +22,13 @@
   <a href="README.md">日本語</a> | English
 </p>
 
+<p align="center">
+  <sub>
+    Japanese localization fork by <a href="https://github.com/kazumasakawahara">Kazumasa Kawahara</a> ・
+    Upstream: <a href="https://github.com/nashsu/llm_wiki">nashsu/llm_wiki</a> by Yong Su (GPL v3)
+  </sub>
+</p>
+
 ---
 
 <p align="center">
@@ -52,6 +59,8 @@ This project is based on [Karpathy's LLM Wiki pattern](https://gist.github.com/k
 </p>
 
 ## Credits
+
+This implementation is based on **[nashsu/llm_wiki](https://github.com/nashsu/llm_wiki)** by **Yong Su**, who took Karpathy's pattern and built it into a full Tauri desktop application with extensions like the knowledge graph, Louvain community detection, Deep Research, and Chrome extension. This repository ([kazumasakawahara/ja-llm-wiki](https://github.com/kazumasakawahara/ja-llm-wiki)) is a downstream fork adding Japanese UI, Japanese morphological tokenization, Japanese project templates, and Japanese-language documentation. License is the same **GPL v3** as upstream.
 
 The foundational methodology comes from **Andrej Karpathy**'s [llm-wiki.md](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f), which describes the pattern of using LLMs to incrementally build and maintain a personal wiki. The original document is an abstract design pattern; this project is a concrete implementation with substantial extensions.
 
@@ -366,17 +375,21 @@ The original is platform-agnostic (abstract pattern). We handle concrete cross-p
 
 ### Pre-built Binaries
 
-Download from [Releases](https://github.com/nashsu/llm_wiki/releases):
+> Upstream English version: [nashsu/llm_wiki](https://github.com/nashsu/llm_wiki).
+
+Download the Japanese-localized build from [Releases](https://github.com/kazumasakawahara/ja-llm-wiki/releases):
 - **macOS**: `.dmg` (Apple Silicon + Intel)
 - **Windows**: `.msi`
 - **Linux**: `.deb` / `.AppImage`
 
 ### Build from Source
 
+> Upstream English version: [nashsu/llm_wiki](https://github.com/nashsu/llm_wiki).
+
 ```bash
 # Prerequisites: Node.js 20+, Rust 1.70+
-git clone https://github.com/nashsu/llm_wiki.git
-cd llm_wiki
+git clone https://github.com/kazumasakawahara/ja-llm-wiki.git
+cd ja-llm-wiki
 npm install
 npm run tauri dev      # Development
 npm run tauri build    # Production build
@@ -424,6 +437,8 @@ my-wiki/
 ```
 
 ## Star History
+
+<sub>(Upstream repository [nashsu/llm_wiki](https://github.com/nashsu/llm_wiki) star history)</sub>
 
 <a href="https://www.star-history.com/?repos=nashsu%2Fllm_wiki&type=date&legend=top-left">
  <picture>

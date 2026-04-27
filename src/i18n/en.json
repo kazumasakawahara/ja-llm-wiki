@@ -216,7 +216,9 @@
         "tokenizerHint": "Tokenization engine for Japanese search queries. Auto uses the OS-provided Intl.Segmenter (fast, lightweight). Lindera is the MeCab-compatible high-accuracy mode and ships with a dictionary that adds ~50MB to the binary.",
         "tokenizerAuto": "Auto (Intl.Segmenter)",
         "tokenizerLindera": "Lindera (MeCab-compatible / high accuracy)",
-        "appDescription": "An LLM-driven personal knowledge base. Source:"
+        "appDescription": "An LLM-driven personal knowledge base. Source:",
+        "forkOrigin": "Based on",
+        "forkOriginSuffix": "by Yong Su (GPL v3)"
       }
     }
   },

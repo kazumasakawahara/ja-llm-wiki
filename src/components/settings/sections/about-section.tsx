@@ -30,7 +30,7 @@ export function AboutSection() {
     useUpdateStore.getState().setChecking(true)
     const result = await checkForUpdates({
       currentVersion: __APP_VERSION__,
-      repo: "nashsu/llm_wiki",
+      repo: "kazumasakawahara/ja-llm-wiki",
     })
     const now = Date.now()
     useUpdateStore.getState().setResult(result, now)
@@ -167,12 +167,26 @@ export function AboutSection() {
           {" "}
           <a
             className="underline underline-offset-2 hover:text-primary"
+            href="https://github.com/kazumasakawahara/ja-llm-wiki"
+            target="_blank"
+            rel="noreferrer"
+          >
+            github.com/kazumasakawahara/ja-llm-wiki
+          </a>
+        </p>
+        <p className="mt-1 text-xs text-muted-foreground">
+          {t("settings.sections.about.forkOrigin")}
+          {" "}
+          <a
+            className="underline underline-offset-2 hover:text-primary"
             href="https://github.com/nashsu/llm_wiki"
             target="_blank"
             rel="noreferrer"
           >
-            github.com/nashsu/llm_wiki
+            nashsu/llm_wiki
           </a>
+          {" "}
+          {t("settings.sections.about.forkOriginSuffix")}
         </p>
       </div>
     </div>

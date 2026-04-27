@@ -216,7 +216,9 @@
         "tokenizerHint": "日本語検索のクエリ分割エンジン。Auto は OS 内蔵の Intl.Segmenter (高速・軽量) を使用します。Lindera は MeCab 互換の高精度モードで、辞書同梱のためバイナリが約 50MB 増えます。",
         "tokenizerAuto": "Auto (Intl.Segmenter)",
         "tokenizerLindera": "Lindera (MeCab 互換 / 高精度)",
-        "appDescription": "LLM 駆動の個人ナレッジベース。ソース:"
+        "appDescription": "LLM 駆動の個人ナレッジベース。ソース:",
+        "forkOrigin": "基礎:",
+        "forkOriginSuffix": "(Yong Su 氏 / GPL v3) を基礎とした派生版"
       }
     }
   },
