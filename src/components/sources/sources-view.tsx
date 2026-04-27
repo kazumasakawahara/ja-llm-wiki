@@ -345,7 +345,7 @@ export function SourcesView() {
       }
     } catch (err) {
       console.error("Failed to delete source:", err)
-      window.alert(`Failed to delete: ${err}`)
+      window.alert(t("sources.deleteError", { details: String(err) }))
     }
   }
 

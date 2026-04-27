@@ -237,12 +237,27 @@ function App() {
     }
   }
 
+  function showOpenProjectError(err: unknown) {
+    const errStr = String(err)
+    const title = i18n.t("project.openErrorTitle")
+    // Rust returns "Not a valid wiki project (missing schema.md): ..." or
+    // "missing wiki/ directory" for the most common case (e.g. user
+    // selected a plain Obsidian Vault). Detect it and show a helpful
+    // localized message with guidance, otherwise fall back to generic.
+    const notWiki =
+      errStr.includes("missing schema.md") || errStr.includes("missing wiki/")
+    const body = notWiki
+      ? i18n.t("project.openErrorNotWiki")
+      : i18n.t("project.openErrorGeneric", { details: errStr })
+    window.alert(`${title}\n\n${body}`)
+  }
+
   async function handleSelectRecent(proj: WikiProject) {
     try {
       const validated = await openProject(proj.path)
       await handleProjectOpened(validated)
     } catch (err) {
-      window.alert(`Failed to open project: ${err}`)
+      showOpenProjectError(err)
     }
   }
 
@@ -250,14 +265,14 @@ function App() {
     const selected = await open({
       directory: true,
       multiple: false,
-      title: "Open Wiki Project",
+      title: i18n.t("project.openWikiDialog"),
     })
     if (!selected) return
     try {
       const proj = await openProject(selected)
       await handleProjectOpened(proj)
     } catch (err) {
-      window.alert(`Failed to open project: ${err}`)
+      showOpenProjectError(err)
     }
   }
 

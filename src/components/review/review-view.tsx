@@ -1,4 +1,5 @@
 import { useCallback } from "react"
+import { useTranslation } from "react-i18next"
 import { queueResearch } from "@/lib/deep-research"
 import {
   AlertTriangle,
@@ -26,6 +27,7 @@ const typeConfig: Record<ReviewItem["type"], { icon: typeof AlertTriangle; label
 }
 
 export function ReviewView() {
+  const { t } = useTranslation()
   const items = useReviewStore((s) => s.items)
   const resolveItem = useReviewStore((s) => s.resolveItem)
   const dismissItem = useReviewStore((s) => s.dismissItem)
@@ -39,7 +41,7 @@ export function ReviewView() {
     if (action === "__deep_research__" && project) {
       const searchConfig = useWikiStore.getState().searchApiConfig
       if (searchConfig.provider === "none" || !searchConfig.apiKey) {
-        window.alert("Web Search not configured. Go to Settings → Web Search to add a Tavily API key first.")
+        window.alert(t("settings.sections.webSearch.notConfigured"))
         return
       }
       const item = items.find((i) => i.id === id)

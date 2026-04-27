@@ -35,7 +35,7 @@ export function ResearchPanel() {
     const topic = inputValue.trim()
     if (!topic || !project) return
     if (searchApiConfig.provider === "none" || !searchApiConfig.apiKey) {
-      window.alert("Web Search not configured. Go to Settings → Web Search to add a Tavily API key.")
+      window.alert(t("settings.sections.webSearch.notConfigured"))
       return
     }
     queueResearch(normalizePath(project.path), topic, llmConfig, searchApiConfig)

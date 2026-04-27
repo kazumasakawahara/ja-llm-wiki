@@ -31,7 +31,11 @@
     "cancel": "Cancel",
     "create": "Create",
     "creating": "Creating...",
-    "errorRequired": "Name and parent directory are required"
+    "errorRequired": "Name and parent directory are required",
+    "openWikiDialog": "Open Wiki Project",
+    "openErrorTitle": "Failed to open project",
+    "openErrorNotWiki": "The selected folder is not an LLM Wiki project (missing schema.md or wiki/ directory).\n\nFor an existing folder (such as an Obsidian Vault), create a new project first and then import the folder via the Sources panel.",
+    "openErrorGeneric": "Unexpected error: {{details}}"
   },
   "sources": {
     "title": "Raw Sources",
@@ -47,7 +51,8 @@
     "delete": "Delete source and related wiki pages",
     "deleteConfirm": "Delete \"{{name}}\" and its related wiki pages?\n\nThis will:\n- Delete the source file\n- Delete wiki pages generated from this source\n- Update index.md",
     "sourceCount": "{{count}} source",
-    "sourceCount_plural": "{{count}} sources"
+    "sourceCount_plural": "{{count}} sources",
+    "deleteError": "Failed to delete: {{details}}"
   },
   "chat": {
     "placeholder": "Ask about your wiki...",
@@ -179,7 +184,8 @@
       "webSearch": {
         "title": "Web Search",
         "description": "Used by Deep Research to pull fresh external context.",
-        "tavilyApiKeyPlaceholder": "Enter your Tavily API key (tavily.com)"
+        "tavilyApiKeyPlaceholder": "Enter your Tavily API key (tavily.com)",
+        "notConfigured": "Web Search is not configured. Go to Settings → Web Search to add a Tavily API key."
       },
       "output": {
         "title": "Output Preferences",

@@ -31,7 +31,11 @@
     "cancel": "キャンセル",
     "create": "作成",
     "creating": "作成中...",
-    "errorRequired": "プロジェクト名と親ディレクトリは必須です"
+    "errorRequired": "プロジェクト名と親ディレクトリは必須です",
+    "openWikiDialog": "Wiki プロジェクトを開く",
+    "openErrorTitle": "プロジェクトを開けませんでした",
+    "openErrorNotWiki": "選択したフォルダは LLM Wiki プロジェクトではありません (schema.md または wiki/ ディレクトリが見つかりません)。\n\n既存のフォルダ (Obsidian Vault など) を使う場合は、新規プロジェクトを作成してから「ソース」パネル経由でフォルダを取り込むのがおすすめです。",
+    "openErrorGeneric": "予期しないエラー: {{details}}"
   },
   "sources": {
     "title": "ソース",
@@ -47,7 +51,8 @@
     "delete": "ソースと関連 wiki ページを削除",
     "deleteConfirm": "「{{name}}」と関連 wiki ページを削除しますか？\n\n実行内容:\n- ソースファイルを削除\n- このソースから生成された wiki ページを削除\n- index.md を更新",
     "sourceCount": "{{count}} 件のソース",
-    "sourceCount_plural": "{{count}} 件のソース"
+    "sourceCount_plural": "{{count}} 件のソース",
+    "deleteError": "削除に失敗しました: {{details}}"
   },
   "chat": {
     "placeholder": "wiki に質問してください...",
@@ -179,7 +184,8 @@
       "webSearch": {
         "title": "Web 検索",
         "description": "Deep Research が外部から最新情報を取得する際に使用します。",
-        "tavilyApiKeyPlaceholder": "Tavily の API キーを入力 (tavily.com)"
+        "tavilyApiKeyPlaceholder": "Tavily の API キーを入力 (tavily.com)",
+        "notConfigured": "Web 検索が設定されていません。設定 → Web 検索 で Tavily の API キーを追加してください。"
       },
       "output": {
         "title": "出力設定",
